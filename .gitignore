@@ -1,0 +1,33 @@
+# AI Agent & Skill Tooling (Local Only)
+.agents/
+.impeccable/
+.taste-skill/
+skills-lock.json
+repomix-output.xml
+
+# Internal Design & Spec Docs (Optional: remove lines if you want to keep docs public)
+DESIGN.md
+PRODUCT.md
+docs/
+
+# Test Fixtures
+content/_fixture/
+
+# Node & Build Artifacts
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+
+# Environment & OS Files
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# IDE / Editor Directories
+.vscode/
+.idea/
+*.swp
+*.swo
