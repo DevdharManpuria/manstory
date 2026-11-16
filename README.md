@@ -1,32 +1,50 @@
 # Dark Lines
 
-A single-page, scroll-driven story built with plain HTML, CSS and ES-module JavaScript. No framework, no npm dependencies.
+A single-page, scroll-driven story built with plain HTML, CSS and JavaScript. No framework and no dependencies, so there is nothing to `npm install`.
 
-## How it works
+## Requirements
 
-`build.mjs` reads `content/*.json` and generates `index.html`. Fonts and images are served from the project's own files (`assets/`, `css/`, `js/`).
+- Node.js 18 or newer
 
 ## Run locally
 
 ```bash
-npm run build   # generate index.html from content/
-npm run serve   # serve the site locally
-npm run dev     # build + serve
+npm run dev
 ```
 
-Requires Node.js 18+.
+Then open http://127.0.0.1:4173/ in your browser.
+
+Use a server rather than opening `index.html` directly, because the JavaScript modules don't load from `file://`.
+
+Other commands:
+
+```bash
+npm run build                  # regenerate index.html from content/
+npm run serve                  # serve without rebuilding
+node serve.mjs --port 8080     # serve on a different port
+```
 
 ## Edit content
 
-Change the JSON files in `content/` (`chapters.json`, `open.json`, `plates.json`, `references.json`), then rebuild.
+1. Edit the JSON files in `content/` (`chapters.json`, `open.json`, `plates.json`, `references.json`).
+2. Run `npm run build` to regenerate `index.html`.
 
-## Deploy to Vercel
+Don't edit `index.html` by hand, because the next build overwrites it.
 
-It's a static site, so it deploys as-is:
+## Project layout
+
+- `build.mjs`: generates `index.html` from `content/`
+- `serve.mjs`: local static server
+- `css/`, `js/`: styles and scripts
+- `assets/`: fonts and images
+
+## Deploy
+
+It's a static site, and the built `index.html` is committed, so any static host works. On Vercel:
 
 - Framework preset: **Other**
-- Build command: `npm run build` (or leave empty, since `index.html` is committed)
-- Output directory: `.` (project root)
+- Build command: `npm run build`
+- Output directory: `.`
 
 ## Docs
 
