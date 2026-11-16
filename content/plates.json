@@ -1,0 +1,164 @@
+{
+  "ishango": {
+    "file": "assets/plates/ishango.webp",
+    "w": 1159,
+    "h": 1600,
+    "alt": "Ishango bone, an Upper Paleolithic bone tool with rows of notches, possibly an early counting device.",
+    "credit": "JhowieNitnek",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ishango_bone.jpg"
+  },
+  "plimpton": {
+    "file": "assets/plates/plimpton.webp",
+    "w": 1246,
+    "h": 863,
+    "alt": "Plimpton 322, a Babylonian clay tablet listing Pythagorean triples in cuneiform columns.",
+    "credit": "Photographer unknown, via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Plimpton_322.jpg"
+  },
+  "euclid": {
+    "file": "assets/plates/euclid.webp",
+    "w": 1600,
+    "h": 975,
+    "alt": "Oxyrhynchus papyrus fragment of Euclid's Elements written in Greek on papyrus.",
+    "credit": "Oxyrhynchus papyrus, via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:P._Oxy._I_29.jpg"
+  },
+  "haytham": {
+    "file": "assets/plates/haytham.webp",
+    "w": 1455,
+    "h": 1600,
+    "alt": "Engraved title page of the Latin Opticae Thesaurus, Ibn al-Haytham's optics, showing ships set alight.",
+    "credit": "Unknown illustrator",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Thesaurus_opticus_Titelblatt.jpg"
+  },
+  "copernicus": {
+    "file": "assets/plates/copernicus.webp",
+    "w": 1600,
+    "h": 1371,
+    "alt": "Diagram of the heliocentric solar system from Copernicus's De revolutionibus, with the Sun at centre.",
+    "credit": "Nicolaus Copernicus, De revolutionibus (1543), scan via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Copernican_heliocentrism_diagram-2.jpg"
+  },
+  "galileo": {
+    "file": "assets/plates/galileo.webp",
+    "w": 1154,
+    "h": 1600,
+    "alt": "Galileo's ink-wash sketches of the Moon's surface, drawn through his telescope in 1609.",
+    "credit": "Galileo Galilei",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Galileo%27s_sketches_of_the_moon.png"
+  },
+  "hooke": {
+    "file": "assets/plates/hooke.webp",
+    "w": 1200,
+    "h": 1600,
+    "alt": "Hooke's Micrographia engraving of cork cells seen through a microscope, with a mimosa leaf below.",
+    "credit": "Robert Hooke, Micrographia (1665)",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:RobertHookeMicrographia1665.jpg"
+  },
+  "fraunhofer": {
+    "file": "assets/plates/fraunhofer.webp",
+    "w": 768,
+    "h": 177,
+    "alt": "Solar spectrum with labelled dark Fraunhofer absorption lines from A to K.",
+    "credit": "Wikimedia Commons user MaureenV",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Fraunhofer_lines.jpg"
+  },
+  "darwin": {
+    "file": "assets/plates/darwin.webp",
+    "w": 982,
+    "h": 1600,
+    "alt": "Charles Darwin's 1837 notebook sketch of a branching tree with the words 'I think'.",
+    "credit": "Charles Darwin",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Darwin_Tree_1837.png"
+  },
+  "rontgen": {
+    "file": "assets/plates/rontgen.webp",
+    "w": 1113,
+    "h": 1600,
+    "alt": "Early X-ray photograph of a hand with rings, taken by Wilhelm Röntgen in December 1895.",
+    "credit": "Wilhelm Röntgen",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:First_medical_X-ray_by_Wilhelm_R%C3%B6ntgen_of_his_wife_Anna_Bertha_Ludwig%27s_hand_-_18951222.jpg"
+  },
+  "relativity": {
+    "file": "assets/plates/relativity.webp",
+    "w": 490,
+    "h": 533,
+    "alt": "Solar eclipse photograph from the 1919 expedition that tested general relativity.",
+    "credit": "Frank Watson Dyson / Arthur Eddington / Charles Rundle Davidson",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:1919_eclipse_positive.jpg"
+  },
+  "quantum": {
+    "file": "assets/plates/quantum.webp",
+    "w": 1600,
+    "h": 1158,
+    "alt": "Group photograph of the 1927 Solvay Conference on electrons and photons, with leading physicists.",
+    "credit": "Benjamin Couprie",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Solvay_conference_1927.jpg"
+  },
+  "transistor": {
+    "file": "assets/plates/transistor.webp",
+    "w": 500,
+    "h": 448,
+    "alt": "Replica of the first point-contact transistor, built at Bell Labs in 1947.",
+    "credit": "US government photograph, via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Replica-of-first-transistor.jpg"
+  },
+  "apollo": {
+    "file": "assets/plates/apollo.webp",
+    "w": 1590,
+    "h": 1600,
+    "alt": "Buzz Aldrin standing on the lunar surface during Apollo 11, photographed by Neil Armstrong.",
+    "credit": "Neil Armstrong",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Aldrin_Apollo_11_original.jpg"
+  },
+  "voyager": {
+    "file": "assets/plates/voyager.webp",
+    "w": 453,
+    "h": 614,
+    "alt": "The Pale Blue Dot, Earth as a tiny speck seen by Voyager 1 from about six billion kilometres.",
+    "credit": "NASA/JPL-Caltech",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Pale_Blue_Dot.png"
+  },
+  "jwst": {
+    "file": "assets/plates/jwst.webp",
+    "w": 1568,
+    "h": 1600,
+    "alt": "Webb's First Deep Field of the SMACS 0723 galaxy cluster, with lensed background galaxies.",
+    "credit": "NASA, ESA, CSA, and STScI",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Webb%27s_First_Deep_Field.jpg"
+  },
+  "ligo": {
+    "file": "assets/plates/ligo.webp",
+    "w": 1280,
+    "h": 1600,
+    "alt": "Strain signals from the twin LIGO detectors for the first detected gravitational wave, GW150914.",
+    "credit": "Caltech/MIT/LIGO Lab",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:GW150914_Strain-diagrams.png"
+  },
+  "higgs": {
+    "file": "assets/plates/higgs.webp",
+    "w": 1104,
+    "h": 1018,
+    "alt": "Simulated CMS detector event display of a candidate Higgs boson decay.",
+    "credit": "Lucas Taylor / CERN",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:CMS_Higgs-event.jpg"
+  }
+}

@@ -1,0 +1,172 @@
+[
+  {
+    "label": "Royal Belgian Institute of Natural Sciences, The Ishango Bone (RBINS exhibition page)",
+    "url": "https://www.naturalsciences.be/en/museum/exhibitions-activities/exhibitions/250-years-of-natural-sciences/the-ishango-bone",
+    "lines": [
+      "ishango"
+    ]
+  },
+  {
+    "label": "Institute for the Study of the Ancient World (NYU), Before Pythagoras: Plimpton 322",
+    "url": "https://isaw.nyu.edu/exhibitions/before-pythagoras/items/plimpton-322/",
+    "lines": [
+      "plimpton"
+    ]
+  },
+  {
+    "label": "Livius.org, Astronomical Diaries",
+    "url": "https://www.livius.org/articles/concept/astronomical-diaries/",
+    "lines": [
+      "diaries"
+    ]
+  },
+  {
+    "label": "Encyclopaedia Britannica, Eratosthenes",
+    "url": "https://www.britannica.com/biography/Eratosthenes",
+    "lines": [
+      "eratosthenes"
+    ]
+  },
+  {
+    "label": "MacTutor History of Mathematics (St Andrews), Brahmagupta",
+    "url": "https://mathshistory.st-andrews.ac.uk/Biographies/Brahmagupta/",
+    "lines": [
+      "brahmagupta"
+    ]
+  },
+  {
+    "label": "Encyclopaedia Britannica, Kitab al-manazir (Ibn al-Haytham's Optics)",
+    "url": "https://www.britannica.com/topic/Kitab-al-manazir",
+    "lines": [
+      "haytham"
+    ]
+  },
+  {
+    "label": "Stanford Encyclopedia of Philosophy, Johannes Kepler",
+    "url": "https://plato.stanford.edu/entries/kepler/",
+    "lines": [
+      "kepler",
+      "copernicus"
+    ]
+  },
+  {
+    "label": "Hearnshaw, Auguste Comte's blunder (Journal of Astronomical History and Heritage, 2010)",
+    "url": "https://ui.adsabs.harvard.edu/abs/2010JAHH...13...90H/abstract",
+    "lines": [
+      "kirchhoff"
+    ]
+  },
+  {
+    "label": "Smithsonian Institution Archives, The Simultaneous Discovery of Electro-Magnetic Induction by Michael Faraday and Joseph Henry",
+    "url": "https://siarchives.si.edu/collections/siris_sic_12605",
+    "lines": [
+      "faraday"
+    ]
+  },
+  {
+    "label": "British Society for the History of Medicine, Jenner, Fewster and Jesty",
+    "url": "https://bshm.org.uk/jenner-fewster-and-jesty/",
+    "lines": [
+      "jenner"
+    ]
+  },
+  {
+    "label": "Nature, Quiet debut for the double helix",
+    "url": "https://www.nature.com/articles/nature01397",
+    "lines": [
+      "dna"
+    ]
+  },
+  {
+    "label": "Encyclopaedia Britannica, Astronomy: Galaxies and the expanding universe",
+    "url": "https://www.britannica.com/science/astronomy/Galaxies-and-the-expanding-universe",
+    "lines": [
+      "hubble"
+    ]
+  },
+  {
+    "label": "Stanford Encyclopedia of Philosophy, Turing Machines",
+    "url": "https://plato.stanford.edu/entries/turing-machine/",
+    "lines": [
+      "turing"
+    ]
+  },
+  {
+    "label": "Leonard Kleinrock (UCLA), The first words on the Internet",
+    "url": "https://www.lk.cs.ucla.edu/internet_first_words.html",
+    "lines": [
+      "arpanet"
+    ]
+  },
+  {
+    "label": "CERN, The birth of the Web",
+    "url": "https://home.cern/science/computing/the-birth-of-the-web/",
+    "lines": [
+      "web"
+    ]
+  },
+  {
+    "label": "Physics Today (AIP), The scientific legacy of the Apollo program",
+    "url": "https://physicstoday.aip.org/features/the-scientific-legacy-of-the-apollo-program",
+    "lines": [
+      "apollo"
+    ]
+  },
+  {
+    "label": "Nobel Prize in Physics 2019, Press release (NobelPrize.org)",
+    "url": "https://nobelprize.org/prizes/physics/2019/press-release/",
+    "lines": [
+      "exoplanet",
+      "cmb"
+    ]
+  },
+  {
+    "label": "NASA JPL, NASA spacecraft embarks on historic journey into interstellar space",
+    "url": "https://www.jpl.nasa.gov/news/nasa-spacecraft-embarks-on-historic-journey-into-interstellar-space",
+    "lines": [
+      "voyager"
+    ]
+  },
+  {
+    "label": "European Space Agency, First images from Webb Telescope reveal unseen universe",
+    "url": "https://www.esa.int/Newsroom/Press_Releases/First_images_from_Webb_Telescope_reveal_unseen_universe",
+    "lines": [
+      "jwst"
+    ]
+  },
+  {
+    "label": "Nurk et al., The complete sequence of a human genome (Science, 2022)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9186530/",
+    "lines": [
+      "genome"
+    ]
+  },
+  {
+    "label": "CERN, The Higgs boson",
+    "url": "https://home.cern/science/physics/higgs-boson",
+    "lines": [
+      "higgs"
+    ]
+  },
+  {
+    "label": "Nobel Prize in Chemistry 2020, Popular information (NobelPrize.org)",
+    "url": "https://www.nobelprize.org/prizes/chemistry/2020/popular-information/",
+    "lines": [
+      "crispr"
+    ]
+  },
+  {
+    "label": "LIGO Scientific Collaboration, GW150914: The Advanced LIGO detectors in the era of first discoveries",
+    "url": "https://ligo.org/science-summaries/gw150914detector/",
+    "lines": [
+      "ligo"
+    ]
+  },
+  {
+    "label": "EMBL, AlphaFold 200 million structures (news, 2022)",
+    "url": "https://www.embl.org/news/science/alphafold-200-million/",
+    "lines": [
+      "alphafold"
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "title": "Past the visible",
+  "years": "Not yet dated",
+  "nm": "below 380",
+  "diagramLabel": "A spectrum strip with unlabelled lines",
+  "intro": [
+    "Visible light is a narrow slice of the electromagnetic spectrum. Radio waves are longer than a kilometre, and gamma rays are shorter than an atom. Most of what exists gives no sign in the part of the spectrum that eyes can use.",
+    "These are lines nobody has been able to label. Each has evidence behind it and no agreed explanation. Some may be answered within a decade, and others may stay open for much longer."
+  ],
+  "questions": [
+    {
+      "id": "q-dark-matter",
+      "title": "What is dark matter?",
+      "text": "Galaxies rotate, and clusters hold together, as if they contain several times more mass than the stars and gas we can see. Gravitational lensing agrees. No detector has yet seen a particle that could account for it.",
+      "builtOn": ["hubble", "cmb"]
+    },
+    {
+      "id": "q-dark-energy",
+      "title": "What drives the acceleration?",
+      "text": "In 1998 two supernova surveys found that the expansion of the universe is speeding up. Something works against gravity on the largest scales. Whether it is a constant energy of empty space or something changing is not known.",
+      "builtOn": ["hubble", "relativity"]
+    },
+    {
+      "id": "q-quantum-gravity",
+      "title": "Do gravity and quantum theory join?",
+      "text": "General relativity and quantum mechanics each pass every test made so far, and they do not fit together. Near a black hole or at the Big Bang both should apply. Candidate theories exist, and none has been confirmed by experiment.",
+      "builtOn": ["relativity", "quantum", "ligo"]
+    },
+    {
+      "id": "q-origin-of-life",
+      "title": "How did chemistry become biology?",
+      "text": "Life was present on Earth within a billion years of the planet's formation, but the steps from simple molecules to the first cells are unknown. We also do not know whether it has happened anywhere else. No second example has been found.",
+      "builtOn": ["dna", "darwin", "exoplanet"]
+    },
+    {
+      "id": "q-mind",
+      "title": "How does a brain produce experience?",
+      "text": "Neuroscience links brain activity to perception, memory and action, yet no accepted theory says why any of it feels like something. The machines we have built perform tasks once thought to need minds, and what they understand is disputed.",
+      "builtOn": ["turing", "alexnet"]
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+.close {
+  background: var(--ground);
+  color: var(--ink);
+  padding-top: var(--s-10);
+  scroll-margin-top: calc(var(--rail-h) + 24px);
+}
+.close__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wdth" 62;
+  font-size: clamp(2.75rem, 8.5vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.close__text {
+  margin-top: var(--s-5);
+  max-width: var(--measure);
+  color: var(--ink-2);
+}
+.close__count {
+  margin-top: var(--s-4);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.125rem;
+  font-variation-settings: "wdth" 100;
+  font-variant-numeric: tabular-nums;
+}
+.close__count:empty {
+  display: none;
+}
+.close__stage {
+  position: relative;
+  margin-block: var(--s-9) var(--s-7);
+}
+.close__band {
+  position: relative;
+  height: 40svh;
+  min-height: 12rem;
+}
+.close__label {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 12px);
+  min-height: 1.5em;
+  margin: 0;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  font-variation-settings: "wdth" 100;
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity 140ms var(--ease-out);
+}
+.close__label[data-active] {
+  opacity: 1;
+}
+.close__line {
+  --lw: var(--lw-1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--x);
+  width: var(--lw);
+  translate: -50% 0;
+  background: var(--lc, var(--tone-dark));
+  opacity: 0.3;
+  transition: opacity 300ms var(--ease-out);
+}
+.close__line[data-weight="2"] { --lw: var(--lw-2); }
+.close__line[data-weight="3"] { --lw: var(--lw-3); }
+.close__line[data-tone="bright"] { background: var(--tone-light); opacity: 1; }
+.close__line[data-seen],
+.no-js .close__line {
+  opacity: 1;
+}
+/* at least 24px wide hit area */
+.close__line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 24px;
+  translate: -50% 0;
+}
+.close__line:focus-visible {
+  outline: 2px solid oklch(0.99 0.02 90);
+  outline-offset: 2px;
+  opacity: 1;
+  z-index: 1;
+}
+/* dark hairline outside the light ring so it reads on every ground */
+.close__line:focus-visible::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid oklch(0.05 0.02 272);
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .close__line:hover {
+    opacity: 1;
+  }
+}
+@media (max-width: 899px) {
+  .close__stage {
+    margin-block: var(--s-8) var(--s-7);
+  }
+}
+.close__foot {
+  padding-bottom: var(--s-10);
+}
+
+/* Sources */
+.sources {
+  background: var(--ground);
+  color: var(--ink);
+  padding-block: var(--s-9);
+  scroll-margin-top: calc(var(--rail-h) + 24px);
+}
+.sources h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: "wdth" 80;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.sources h3 {
+  margin-top: var(--s-8);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: "wdth" 100;
+  font-size: 1.25rem;
+}
+.sources__list,
+.sources__plates {
+  margin-top: var(--s-5);
+  max-width: 78ch;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.sources__list {
+  list-style: decimal;
+  padding-left: 2.25em;
+}
+.sources__list li,
+.sources__plates li {
+  padding-block: var(--s-1);
+}
+.sources__list li::marker {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+.sources a {
+  color: var(--ink);
+  transition: text-decoration-thickness 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sources a:hover {
+    text-decoration-thickness: 3px;
+  }
+}
+
+@media (max-width: 899px) {
+  .close {
+    padding-top: var(--s-9);
+  }
+  .close__foot {
+    padding-bottom: var(--s-9);
+  }
+  .sources {
+    padding-block: var(--s-8);
+  }
+}
+
+@keyframes flash-fade {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Reduced motion: no transforms; short opacity fades only. Written twice because a media query
+   and an attribute selector cannot share one rule list. Keep both blocks identical. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .hero__beam { animation: none; opacity: 0; }
+  .js .hero__band,
+  .js .hero__line,
+  .js .hero__tl,
+  .js .hero__lede,
+  .js .hero__copy .btn { animation: fade-in 200ms ease 0ms backwards; }
+  .js .rail { transform: none; opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 0s linear 200ms; }
+  .js .rail[data-docked], .js .rail:focus-within { opacity: 1; visibility: visible; transition: opacity 200ms ease, visibility 0s; }
+  .rail__tick, .rail__tick[data-current], .rail__tick[data-thread], .rail__tick:hover, .rail__tick[data-thread]:hover { transform: none; }
+  .menu, .menu[data-open] { transform: none; transition: opacity 140ms ease, visibility 0s linear 140ms; }
+  .menu[data-open] { transition: opacity 180ms ease, visibility 0s; }
+  .word > span, .chapter[data-armed]:not([data-entered]) .word > span { transform: none; transition: none; }
+  .line__rule, .line:not(.line--open):has(.line__toggle:hover) .line__rule { transform: none; transition: none; }
+  .line__row, .line__row:has(.line__toggle:active) { transform: none; transition: none; }
+  .line__title, .line__toggle:hover .line__title { transform: none; transition: none; }
+  .line__icon, .line:has(.line__toggle[aria-expanded="true"]) .line__icon, .line[data-open] .line__icon { transform: none; transition: none; }
+  .line__panel, .line:has(.line__toggle[aria-expanded="true"]) .line__panel, .line[data-open] .line__panel, .no-js .line__panel { transition: none; }
+  .line__panel-clip, .line:has(.line__toggle[aria-expanded="true"]) .line__panel-clip, .line[data-open] .line__panel-clip { transition: none; }
+  .line__panel-inner { filter: none; transition: opacity 200ms ease; }
+  .line:has(.line__toggle[aria-expanded="true"]) .line__panel-inner, .line[data-open] .line__panel-inner, .no-js .line__panel-inner { filter: none; transition: opacity 200ms ease; }
+  .line[data-flash] .line__rule::after { animation: flash-fade 900ms ease 1 both; clip-path: none; }
+  .menu__link .menu__title, .menu__link:hover .menu__title, .menu__link:focus-visible .menu__title, .menu__link:active .menu__title { transform: none; transition: none; }
+  .btn:active, .rail__menu:active { transform: none; }
+  .btn:hover .btn__arrow, .btn:hover .btn__arrow[data-up] { transform: none; }
+}
+html[data-reduced-motion] { scroll-behavior: auto; }
+html[data-reduced-motion].js .hero__beam { animation: none; opacity: 0; }
+html[data-reduced-motion].js .hero__band,
+html[data-reduced-motion].js .hero__line,
+html[data-reduced-motion].js .hero__tl,
+html[data-reduced-motion].js .hero__lede,
+html[data-reduced-motion].js .hero__copy .btn { animation: fade-in 200ms ease 0ms backwards; }
+html[data-reduced-motion].js .rail { transform: none; opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 0s linear 200ms; }
+html[data-reduced-motion].js .rail[data-docked], html[data-reduced-motion].js .rail:focus-within { opacity: 1; visibility: visible; transition: opacity 200ms ease, visibility 0s; }
+html[data-reduced-motion] .rail__tick, html[data-reduced-motion] .rail__tick[data-current], html[data-reduced-motion] .rail__tick[data-thread], html[data-reduced-motion] .rail__tick:hover, html[data-reduced-motion] .rail__tick[data-thread]:hover { transform: none; }
+html[data-reduced-motion] .menu, html[data-reduced-motion] .menu[data-open] { transform: none; transition: opacity 140ms ease, visibility 0s linear 140ms; }
+html[data-reduced-motion] .menu[data-open] { transition: opacity 180ms ease, visibility 0s; }
+html[data-reduced-motion] .word > span, html[data-reduced-motion] .chapter[data-armed]:not([data-entered]) .word > span { transform: none; transition: none; }
+html[data-reduced-motion] .line__rule, html[data-reduced-motion] .line:not(.line--open):has(.line__toggle:hover) .line__rule { transform: none; transition: none; }
+html[data-reduced-motion] .line__row, html[data-reduced-motion] .line__row:has(.line__toggle:active) { transform: none; transition: none; }
+html[data-reduced-motion] .line__title, html[data-reduced-motion] .line__toggle:hover .line__title { transform: none; transition: none; }
+html[data-reduced-motion] .line__icon, html[data-reduced-motion] .line:has(.line__toggle[aria-expanded="true"]) .line__icon, html[data-reduced-motion] .line[data-open] .line__icon { transform: none; transition: none; }
+html[data-reduced-motion] .line__panel, html[data-reduced-motion] .line:has(.line__toggle[aria-expanded="true"]) .line__panel, html[data-reduced-motion] .line[data-open] .line__panel, html[data-reduced-motion].no-js .line__panel { transition: none; }
+html[data-reduced-motion] .line__panel-clip, html[data-reduced-motion] .line:has(.line__toggle[aria-expanded="true"]) .line__panel-clip, html[data-reduced-motion] .line[data-open] .line__panel-clip { transition: none; }
+html[data-reduced-motion] .line__panel-inner { filter: none; transition: opacity 200ms ease; }
+html[data-reduced-motion] .line:has(.line__toggle[aria-expanded="true"]) .line__panel-inner, html[data-reduced-motion] .line[data-open] .line__panel-inner, html[data-reduced-motion].no-js .line__panel-inner { filter: none; transition: opacity 200ms ease; }
+html[data-reduced-motion] .line[data-flash] .line__rule::after { animation: flash-fade 900ms ease 1 both; clip-path: none; }
+html[data-reduced-motion] .menu__link .menu__title, html[data-reduced-motion] .menu__link:hover .menu__title, html[data-reduced-motion] .menu__link:focus-visible .menu__title, html[data-reduced-motion] .menu__link:active .menu__title { transform: none; transition: none; }
+html[data-reduced-motion] .btn:active, html[data-reduced-motion] .rail__menu:active { transform: none; }
+html[data-reduced-motion] .btn:hover .btn__arrow, html[data-reduced-motion] .btn:hover .btn__arrow[data-up] { transform: none; }

@@ -1,0 +1,769 @@
+[
+  {
+    "id": "sky",
+    "title": "Counting the sky",
+    "years": "c. 20,000 BCE to 600 BCE",
+    "nm": 700,
+    "intro": [
+      "Long before writing, people kept count by cutting marks into bone, antler and stone. The Moon's phases gave the first calendar anyone could check against the sky, and counting them led toward arithmetic.",
+      "In Mesopotamia, scribes pressed base-60 numbers into clay. From 652 BCE they also wrote down what the Moon and planets did each night, and kept doing so for about six centuries. Dates for the earliest marks are approximate."
+    ],
+    "handoff": "Counting and long records gave later thinkers numbers to reason with and a sky that behaved predictably.",
+    "diagramLabel": "A row of tally notches above a sequence of Moon phases from new Moon to full Moon and back.",
+    "lines": [
+      {
+        "id": "ishango",
+        "year": "c. 20,000 BCE",
+        "sortYear": -20000,
+        "title": "Notches on the Ishango bone",
+        "weight": 1,
+        "summary": "A baboon leg bone carved with groups of notches, found in 1950 at Ishango in what is now DR Congo.",
+        "replaced": "Nothing was overturned here; the bone is evidence that people recorded quantities in durable marks very early. Jean de Heinzelin, who found it, saw arithmetic in the groups. Other researchers think the notches may track lunar phases, or nothing numerical at all.",
+        "enabled": "Tally marks of this kind are the ancestors of written number systems. Counting in recorded units is what the Babylonian scribes later turned into a place-value system and tables of calculation.",
+        "builtOn": []
+      },
+      {
+        "id": "plimpton",
+        "year": "c. 1800 BCE",
+        "sortYear": -1800,
+        "title": "Plimpton 322 and base-60 arithmetic",
+        "weight": 2,
+        "summary": "An Old Babylonian clay tablet lists number triples that fit the Pythagorean relation, about a thousand years before Pythagoras.",
+        "replaced": "Counting in tallies could not handle fractions or large quantities. Babylonian scribes used a place-value system in base 60. Historians still argue over what Plimpton 322 was for: a teaching aid, a trigonometric table, or something else.",
+        "enabled": "Base 60 survives in the 60 minutes of an hour and the 360 degrees of a circle. Greek astronomers took Babylonian angle and time units, and Euclid and Ptolemy built on the same body of mathematics.",
+        "builtOn": ["ishango"]
+      },
+      {
+        "id": "diaries",
+        "year": "from 652 BCE",
+        "sortYear": -652,
+        "title": "Babylonian astronomical diaries begin",
+        "weight": 2,
+        "summary": "Scribes record the Moon, planets and weather every night for about six centuries, often called the longest continuous observing programme.",
+        "replaced": "Omens had been read from single sightings. The diaries replaced isolated portents with a long series, and the series revealed repeating cycles in the sky, including the spacing of lunar eclipses.",
+        "enabled": "Eclipse cycles became predictable from the records alone. Greek astronomers, Hipparchus and Ptolemy among them, drew on Babylonian observations to fit their models of the Moon and planets.",
+        "builtOn": ["plimpton"]
+      }
+    ]
+  },
+  {
+    "id": "reasons",
+    "title": "Causes without gods",
+    "years": "600 BCE to 200 CE",
+    "nm": 650,
+    "intro": [
+      "Around 600 BCE, thinkers in the Greek city of Miletus began to ask what the world was made of and gave answers that named no god. Their answers were often wrong, and they could be argued with.",
+      "That habit of public argument produced Euclid's proof from axioms, a measurement of the whole Earth from a shadow, and a model of the heavens detailed enough to predict planetary positions for centuries."
+    ],
+    "handoff": "Proof, measurement and a working model of the sky passed to scholars who translated, checked and extended them.",
+    "diagramLabel": "Diagram of Eratosthenes' method: two vertical rods at Syene and Alexandria, with sunlight making a shadow angle of 7.2 degrees at Alexandria.",
+    "lines": [
+      {
+        "id": "miletus",
+        "year": "c. 600 BCE",
+        "sortYear": -600,
+        "title": "Natural causes proposed at Miletus",
+        "weight": 1,
+        "summary": "Thales, Anaximander and their followers explain natural events by natural causes, such as water or an unlimited substance.",
+        "replaced": "Earthquakes, storms and floods had been the acts of gods. The Milesians offered explanations that anyone could examine and dispute. Our knowledge of their ideas comes mostly from later authors, so details are uncertain.",
+        "enabled": "Later philosophers kept the habit of asking for a cause and defending it. Euclid's insistence on proof and Ptolemy's geometric model both belong to a tradition of giving reasons that others can check.",
+        "builtOn": []
+      },
+      {
+        "id": "euclid",
+        "year": "c. 300 BCE",
+        "sortYear": -300,
+        "title": "Euclid's Elements: proof from axioms",
+        "weight": 2,
+        "summary": "Euclid's Elements derives geometry and number theory from a short list of stated assumptions, one theorem at a time.",
+        "replaced": "Earlier geometry, Babylonian and Egyptian, gave working rules without arguing for them. Euclid collected results from predecessors such as Eudoxus and ordered them so that each step rests on earlier ones.",
+        "enabled": "The Elements stayed a standard textbook for over two thousand years. Its method of definitions, axioms and proofs underlies Ptolemy's astronomy, al-Khwarizmi's algebra, Newton's Principia and, later, formal logic.",
+        "builtOn": ["plimpton", "miletus"]
+      },
+      {
+        "id": "eratosthenes",
+        "year": "c. 240 BCE",
+        "sortYear": -240,
+        "title": "Eratosthenes measures the Earth",
+        "weight": 2,
+        "summary": "From the Sun's angle at Alexandria, about 7.2 degrees or one fiftieth of a circle, and the distance to Syene, he gets the circumference.",
+        "replaced": "The Earth's size had been a matter of guesswork. Eratosthenes treated the Sun's rays as parallel and applied Euclid's geometry. The ancient length unit he used is uncertain, so how close he came is debated.",
+        "enabled": "Measuring the planet from a shadow showed that geometry could size objects no one could reach. Later astronomers used the same reasoning for the distance to the Moon and, much later, for survey triangulation.",
+        "builtOn": ["euclid"]
+      },
+      {
+        "id": "ptolemy",
+        "year": "c. 150 CE",
+        "sortYear": 150,
+        "title": "Ptolemy's Almagest predicts the planets",
+        "weight": 2,
+        "summary": "An Earth-centred model of circles within circles predicted planetary positions well enough to be used for about 1,400 years.",
+        "replaced": "Earlier Greek models fitted the planets poorly. Ptolemy combined Hipparchus's work with Babylonian records and added devices such as the equant to match the observed motions.",
+        "enabled": "The Almagest gave astronomers a model to test, correct and eventually reject. Copernicus wrote his book in its form, and the arguments about its flaws drove astronomy until Kepler and Newton.",
+        "builtOn": ["diaries", "euclid"]
+      }
+    ]
+  },
+  {
+    "id": "method",
+    "title": "Numbers and experiments",
+    "years": "600 to 1500",
+    "nm": 610,
+    "intro": [
+      "Scholars in India, Baghdad and Cairo took Greek and Indian mathematics, translated them, and pushed them further. Zero became a number, algebra got a name, and optics became a subject settled by experiment.",
+      "In Mainz around 1455, Gutenberg cast metal type and printed identical copies. Tables, diagrams and arguments could now be compared page for page, in different cities, by people who had never met."
+    ],
+    "handoff": "Algebra, tested optics and cheap identical books reached a Europe ready to question the old model of the sky.",
+    "diagramLabel": "Light rays from a candle crossing at a pinhole in a dark box and forming an inverted image on the back wall.",
+    "lines": [
+      {
+        "id": "brahmagupta",
+        "year": "628",
+        "sortYear": 628,
+        "title": "Brahmagupta's rules for zero",
+        "weight": 1,
+        "summary": "The Brahmasphutasiddhanta states rules for arithmetic with zero and with negative numbers.",
+        "replaced": "Zero had served as a placeholder in written numbers. Brahmagupta treated it as a number that can be added, subtracted and multiplied. His rule for division by zero was incomplete, and later Indian mathematicians revised it.",
+        "enabled": "The decimal system with zero reached Baghdad, where al-Khwarizmi wrote about it. Through Arabic and Latin texts it became the way Europeans did arithmetic and bookkeeping.",
+        "builtOn": ["plimpton"]
+      },
+      {
+        "id": "khwarizmi",
+        "year": "c. 820",
+        "sortYear": 820,
+        "title": "Al-Khwarizmi names algebra in Baghdad",
+        "weight": 2,
+        "summary": "His book on completion and balancing (al-jabr) solves equations by general rules, and a second text teaches Indian numerals.",
+        "replaced": "Equations had been solved case by case, often through geometric pictures. Al-Khwarizmi classed them by type and gave a method for each. Latin versions of his name became the word algorithm.",
+        "enabled": "Algebra let later mathematicians state problems in symbols and solve whole families at once. The idea of an algorithm, a fixed procedure that gives an answer, is what Turing later made precise.",
+        "builtOn": ["brahmagupta", "euclid"]
+      },
+      {
+        "id": "haytham",
+        "year": "c. 1021",
+        "sortYear": 1021,
+        "title": "Ibn al-Haytham's Book of Optics",
+        "weight": 3,
+        "summary": "Light enters the eye from objects, and each claim about it is tested by controlled experiment, including with the camera obscura.",
+        "replaced": "Greek theories held that vision came from rays sent out by the eye, and Ptolemy and Euclid had treated optics mainly as geometry. Ibn al-Haytham argued that the eye receives light and tested this with instruments.",
+        "enabled": "The Latin translation shaped Kepler's account of the eye and the telescope's optics. His habit of testing a claim against a designed experiment became a core method of later European science.",
+        "builtOn": ["euclid", "ptolemy"]
+      },
+      {
+        "id": "gutenberg",
+        "year": "c. 1455",
+        "sortYear": 1455,
+        "title": "Gutenberg's press at Mainz",
+        "weight": 2,
+        "summary": "Movable metal type makes identical copies of a text, a table or a diagram.",
+        "replaced": "Copying by hand introduced errors and made each copy slightly different. Printing fixed one version and spread it. Movable type was already used in East Asia, and the exact date of Gutenberg's first press is approximate.",
+        "enabled": "Astronomical tables, anatomical plates and arguments could be circulated unaltered. Copernicus and Vesalius both published printed books, and scholars could now check each other's numbers against identical editions.",
+        "builtOn": []
+      }
+    ]
+  },
+  {
+    "id": "revolution",
+    "title": "The Earth moves",
+    "years": "1543 to 1687",
+    "nm": 580,
+    "intro": [
+      "In 1543 two printed books appeared in Europe: one placed the Sun at the centre, the other corrected the textbook picture of the human body. Both contradicted ancient authorities and both could be checked.",
+      "Over the next 144 years, the telescope, the microscope and the prism supplied new evidence. Kepler's ellipses and Newton's laws joined the heavens and the ground under one set of rules."
+    ],
+    "handoff": "Laws of motion and the habit of measuring left chemists and physicists a method and a toolkit.",
+    "diagramLabel": "Planets on elliptical orbits around the Sun, with the Sun at one focus of each ellipse.",
+    "lines": [
+      {
+        "id": "copernicus",
+        "year": "1543",
+        "sortYear": 1543,
+        "title": "Copernicus puts the Sun at the centre",
+        "weight": 3,
+        "summary": "De revolutionibus describes the Earth as a planet that rotates daily and orbits the Sun yearly.",
+        "replaced": "Ptolemy's Earth-centred model had stood for about 1,400 years. Copernicus kept circular orbits and still needed small circles to fit the data, so his system was not at first more accurate. It was simpler in its order of the planets.",
+        "enabled": "Kepler and Galileo both started from the Sun-centred arrangement. Printing carried the book to astronomers across Europe, who could test its tables against their own observations.",
+        "builtOn": ["ptolemy", "gutenberg"]
+      },
+      {
+        "id": "vesalius",
+        "year": "1543",
+        "sortYear": 1543,
+        "title": "Vesalius's anatomy from dissection",
+        "weight": 1,
+        "summary": "De humani corporis fabrica describes and illustrates the human body from the author's own dissections.",
+        "replaced": "Teaching had relied on Galen, who dissected animals and described them as if they were human. Vesalius found and listed errors by looking at actual bodies, though he still followed Galen on many points.",
+        "enabled": "Accurate printed plates made anatomy something to inspect directly. Later physicians kept checking the body against the book, a habit that carried into Hooke's observations with the microscope.",
+        "builtOn": ["gutenberg"]
+      },
+      {
+        "id": "kepler",
+        "year": "1609",
+        "sortYear": 1609,
+        "title": "Kepler finds Mars moves on an ellipse",
+        "weight": 2,
+        "summary": "Astronomia nova derives elliptical orbits from Tycho Brahe's naked-eye observations of Mars, gathered over many years.",
+        "replaced": "Every earlier model, Copernicus's included, used circles. Kepler spent years on Mars before an 8 arc-minute mismatch in Tycho's data led him to drop the circle. Tycho's observations were the evidence the result depended on.",
+        "enabled": "Kepler's laws gave Newton the planetary motions his gravity had to explain. Kepler's method of fitting a model to precise data later shaped how astronomers detect planets from stellar wobble.",
+        "builtOn": ["copernicus"]
+      },
+      {
+        "id": "galileo",
+        "year": "1610",
+        "sortYear": 1610,
+        "title": "Galileo sees four moons of Jupiter",
+        "weight": 3,
+        "summary": "Sidereus Nuncius reports mountains on the Moon and four bodies orbiting Jupiter, observed through a telescope.",
+        "replaced": "Aristotle's heavens were perfect and everything orbited the Earth. Craters on the Moon and moons circling another planet contradicted both points. The telescope was a Dutch invention that Galileo improved.",
+        "enabled": "Anyone with a telescope could repeat the observations, so evidence stopped depending on authority. Later astronomers used larger instruments to find galaxies, redshifts and, in 1995, the first planet around a Sun-like star.",
+        "builtOn": ["copernicus", "haytham"]
+      },
+      {
+        "id": "hooke",
+        "year": "1665",
+        "sortYear": 1665,
+        "title": "Hooke draws the microscopic world",
+        "weight": 1,
+        "summary": "Micrographia prints detailed drawings of fleas, mould and cork, and names the compartments seen in cork \"cells\".",
+        "replaced": "The smallest visible things had been out of sight and out of argument. Hooke showed there was structure below the limit of the eye. What he saw in cork were the walls of dead cells, not living ones.",
+        "enabled": "Cells were later recognised as the basic units of living things. Microscopy let Koch and others see the organisms behind disease, and later work in biology kept relying on better instruments.",
+        "builtOn": ["haytham", "galileo"]
+      },
+      {
+        "id": "newton-light",
+        "year": "1672",
+        "sortYear": 1672,
+        "title": "Newton splits white light with prisms",
+        "weight": 2,
+        "summary": "In a paper to the Royal Society, Newton shows that white light is a mixture of colours, which a second prism recombines.",
+        "replaced": "The common view held that a prism added colour to white light. Newton used a second prism to turn the colours back into white, which showed the colours were already there.",
+        "enabled": "Spectra became a measurable thing. Fraunhofer's dark lines and Kirchhoff's chemical analysis of starlight both depend on spreading light into its colours, as Newton did.",
+        "builtOn": ["haytham"]
+      },
+      {
+        "id": "newton",
+        "year": "1687",
+        "sortYear": 1687,
+        "title": "Newton's laws of motion and gravitation",
+        "weight": 3,
+        "summary": "Principia sets out three laws of motion and universal gravitation, one law for a falling body and the Moon.",
+        "replaced": "Terrestrial and celestial motion had been treated as separate kinds. Newton derived Kepler's laws from an inverse-square force. Leibniz developed calculus independently, and the priority dispute between them was bitter.",
+        "enabled": "Engineers and astronomers could now compute trajectories. Orbits of satellites and probes, and the first test of Einstein's relativity in the 1919 eclipse, rest on Newton's mathematics as the thing to improve.",
+        "builtOn": ["kepler", "galileo", "euclid"]
+      }
+    ]
+  },
+  {
+    "id": "matter",
+    "title": "Matter and current",
+    "years": "1789 to 1869",
+    "nm": 555,
+    "intro": [
+      "Chemistry became quantitative: Lavoisier weighed everything, and Dalton gave each element its own atom. A table of elements followed, with gaps for those still to be found.",
+      "Electricity moved from curiosity to engineering as Volta's battery and Faraday's induction led to Maxwell's equations. In between, Fraunhofer and Kirchhoff showed that the dark lines in sunlight carry a chemical signature of the Sun itself."
+    ],
+    "handoff": "Atoms, spectral lines and electromagnetic waves arrived at 1900 as three separate puzzles that needed one theory.",
+    "diagramLabel": "An electromagnetic wave: electric and magnetic fields oscillating at right angles to each other and to the direction of travel.",
+    "lines": [
+      {
+        "id": "lavoisier",
+        "year": "1789",
+        "sortYear": 1789,
+        "title": "Lavoisier's chemistry of mass and oxygen",
+        "weight": 2,
+        "summary": "His Traité élémentaire states conservation of mass, lists the elements, and attributes burning to oxygen.",
+        "replaced": "Phlogiston theory said burning released a substance from the material. Lavoisier weighed what went in and what came out and found that burning combines a material with oxygen. Marie-Anne Paulze Lavoisier helped with the records and illustrations.",
+        "enabled": "Reliable bookkeeping of mass gave chemistry a firm base. Dalton's atoms and Mendeleev's table both depend on measured combining weights of elements, which Lavoisier's method made routine.",
+        "builtOn": []
+      },
+      {
+        "id": "volta",
+        "year": "1800",
+        "sortYear": 1800,
+        "title": "Volta's pile makes a steady current",
+        "weight": 1,
+        "summary": "Stacked discs of zinc and silver separated by wet cloth give the first battery.",
+        "replaced": "Electricity had come only as sparks from friction machines. Volta's pile gave a continuous current that could be used for experiments. Luigi Galvani's earlier frog experiments had prompted the dispute that led to it.",
+        "enabled": "A steady current made experiments such as Faraday's possible, and electrochemistry let Humphry Davy isolate new elements. Without a battery, the study of electromagnetism could not have gone forward.",
+        "builtOn": []
+      },
+      {
+        "id": "dalton",
+        "year": "1808",
+        "sortYear": 1808,
+        "title": "Dalton gives each element its atom",
+        "weight": 2,
+        "summary": "A New System of Chemical Philosophy proposes that every element is made of atoms with a characteristic weight.",
+        "replaced": "The atom had been a philosophical idea since the Greeks. Dalton turned it into a quantity that chemists could measure from the proportions in which elements combine. Several of his weights were wrong.",
+        "enabled": "Atomic weights let Mendeleev order the elements, and a chemical formula could be written for each compound. Kirchhoff's identification of elements in the Sun assumed each element had a distinct identity.",
+        "builtOn": ["lavoisier"]
+      },
+      {
+        "id": "fraunhofer",
+        "year": "1814",
+        "sortYear": 1814,
+        "title": "Fraunhofer maps the dark lines of sunlight",
+        "weight": 2,
+        "summary": "Joseph von Fraunhofer charts hundreds of dark lines in the solar spectrum and labels the strongest with letters.",
+        "replaced": "Newton's spectrum looked like a smooth band of colour. Fraunhofer's finer prisms and slit showed it was crossed by 574 lines, the figure usually given. He could not say what caused them.",
+        "enabled": "The lines became a fixed set of reference marks for measuring glass and light. Kirchhoff and Bunsen later explained them as the fingerprints of elements, and that opened chemical analysis of the stars.",
+        "builtOn": ["newton-light"]
+      },
+      {
+        "id": "faraday",
+        "year": "1831",
+        "sortYear": 1831,
+        "title": "Faraday discovers electromagnetic induction",
+        "weight": 3,
+        "summary": "A changing magnetic field drives a current in a nearby wire, the principle of the generator and the transformer.",
+        "replaced": "Electricity and magnetism had been treated as two separate forces. Faraday showed that one produces the other. Joseph Henry in the United States found induction at about the same time.",
+        "enabled": "Generators turned motion into electric power on a large scale. Faraday's idea of a field filling space gave Maxwell the picture he needed to write electromagnetism as one set of equations.",
+        "builtOn": ["volta"]
+      },
+      {
+        "id": "kirchhoff",
+        "year": "1859",
+        "sortYear": 1859,
+        "title": "Kirchhoff and Bunsen read the Sun's chemistry",
+        "weight": 3,
+        "summary": "At Heidelberg they show each element emits and absorbs light at its own wavelengths, so the Sun's dark lines name its contents.",
+        "replaced": "Auguste Comte had said in 1835 that the composition of stars could never be known. The two found sodium's bright lines sat exactly where Fraunhofer's dark D lines did, and extended the match to other elements.",
+        "enabled": "Spectroscopy found new elements, such as caesium and rubidium, and showed that stars are made of the same elements as the Earth. Bohr's atom and Hubble's redshifts both read light by its lines.",
+        "builtOn": ["fraunhofer", "dalton"]
+      },
+      {
+        "id": "maxwell",
+        "year": "1865",
+        "sortYear": 1865,
+        "title": "Maxwell shows light is an electromagnetic wave",
+        "weight": 3,
+        "summary": "\"A Dynamical Theory of the Electromagnetic Field\" unites electricity and magnetism, and finds that light is a wave in that field.",
+        "replaced": "Light, electricity and magnetism had been separate subjects. Maxwell's equations predicted waves that travel at the measured speed of light. Heinrich Hertz confirmed such waves in the laboratory in 1887.",
+        "enabled": "Radio, radar and X-ray physics follow from the theory. Planck and Einstein started from its conflict with the physics of hot bodies, and special relativity arose from its demand that light's speed be constant.",
+        "builtOn": ["faraday", "newton"]
+      },
+      {
+        "id": "mendeleev",
+        "year": "1869",
+        "sortYear": 1869,
+        "title": "Mendeleev's periodic table leaves gaps",
+        "weight": 2,
+        "summary": "Elements arranged by atomic weight show repeating properties, with spaces left for elements not yet found.",
+        "replaced": "Chemists had a growing list of elements with no known order. Mendeleev placed them by weight and by properties, reversing the order for some. Gallium, scandium and germanium were later found to fit his gaps.",
+        "enabled": "The table gave chemists a map for predicting new elements. Its logic needed an explanation, and Bohr's account of electron shells in 1913 supplied it.",
+        "builtOn": ["dalton", "lavoisier"]
+      }
+    ]
+  },
+  {
+    "id": "life",
+    "title": "The record of life",
+    "years": "1796 to 1953",
+    "nm": 520,
+    "intro": [
+      "Biology found its causes. Jenner tested a vaccine, Koch tied a single bacterium to a disease, and Fleming's mould gave doctors a drug that kills bacteria inside the body.",
+      "Beneath the medicine ran a second line: Darwin on descent with modification, Mendel on discrete inheritance, and in 1953 the structure of DNA. The two ideas were put together only in the 1930s and 1940s."
+    ],
+    "handoff": "Descent, inheritance and a molecular structure for DNA left biology with a code it could read.",
+    "diagramLabel": "A branching tree of descent whose trunk turns into a double helix.",
+    "lines": [
+      {
+        "id": "jenner",
+        "year": "1796",
+        "sortYear": 1796,
+        "title": "Jenner tests cowpox against smallpox",
+        "weight": 1,
+        "summary": "Edward Jenner inoculates a boy with cowpox and shows he resists smallpox; the disease is declared eradicated in 1980.",
+        "replaced": "Smallpox had been met with variolation, a risky inoculation with the disease itself. Jenner used a milder related disease. Farmers had noticed the effect of cowpox before him, and Benjamin Jesty vaccinated his family in 1774.",
+        "enabled": "Vaccination established that deliberate exposure could give immunity. Pasteur extended the method to other diseases, and the same logic produced the global campaign that ended smallpox.",
+        "builtOn": []
+      },
+      {
+        "id": "darwin",
+        "year": "1859",
+        "sortYear": 1859,
+        "title": "Darwin's Origin of Species",
+        "weight": 3,
+        "summary": "Evolution by natural selection explains how species descend from common ancestors; Wallace reached the idea independently, and their papers were read together in 1858.",
+        "replaced": "Species had been seen as fixed, each made separately. Darwin gathered decades of evidence from breeding, fossils and geography. He could not explain how traits are inherited, and that gap was filled later.",
+        "enabled": "Common descent organised all of biology and pointed to a shared origin of life. When genetics was joined to selection, evolution became a quantitative science, and DNA sequences later let us trace relationships directly.",
+        "builtOn": []
+      },
+      {
+        "id": "mendel",
+        "year": "1866",
+        "sortYear": 1866,
+        "title": "Mendel's pea experiments at Brno",
+        "weight": 2,
+        "summary": "Crossing thousands of pea plants shows that inheritance works in discrete units, with predictable ratios.",
+        "replaced": "Blending inheritance assumed that offspring average their parents' traits. Mendel's counts showed that traits stay distinct and can reappear in later generations. His paper was largely unread until 1900.",
+        "enabled": "Rediscovery in 1900 started genetics. Genes became physical objects on chromosomes, and Watson and Crick's helix later explained how those units are copied.",
+        "builtOn": []
+      },
+      {
+        "id": "koch",
+        "year": "1876",
+        "sortYear": 1876,
+        "title": "Koch links anthrax to one bacterium",
+        "weight": 2,
+        "summary": "Robert Koch shows that a specific bacterium causes anthrax; with Pasteur's work, this establishes germ theory.",
+        "replaced": "Disease was often blamed on bad air or imbalance within the body. Koch grew the organism in pure culture and reproduced the illness in animals. He later formalised the steps of proof that carry his name.",
+        "enabled": "Identifying the cause allowed targeted prevention, sterile surgery and the search for cures. Fleming's penicillin was a response to this knowledge of bacteria.",
+        "builtOn": ["hooke", "jenner"]
+      },
+      {
+        "id": "fleming",
+        "year": "1928",
+        "sortYear": 1928,
+        "title": "Fleming's mould kills bacteria",
+        "weight": 2,
+        "summary": "Alexander Fleming notices Penicillium mould clearing bacteria from a dish; Florey, Chain and Heatley turn it into a drug by the early 1940s.",
+        "replaced": "Doctors had few ways to treat bacterial infections once established. Fleming's observation was an accident of a contaminated culture, and he did not purify the drug. The Oxford team did that work.",
+        "enabled": "Penicillin opened the age of antibiotics, which made surgery, childbirth and wound care far safer. Resistance to antibiotics is now a leading medical problem.",
+        "builtOn": ["koch"]
+      },
+      {
+        "id": "dna",
+        "year": "1953",
+        "sortYear": 1953,
+        "title": "Watson and Crick's double helix",
+        "weight": 3,
+        "summary": "A model of DNA as two paired strands, built using X-ray diffraction data from Rosalind Franklin and Raymond Gosling.",
+        "replaced": "Many biologists had expected proteins to carry heredity. Franklin and Gosling's Photo 51 showed a helix, and Watson and Crick built the model with the paired bases. Franklin's role was credited only vaguely at the time.",
+        "enabled": "The structure explained how genetic information is stored and copied. Reading it letter by letter became the Human Genome Project, and cutting it at chosen places became CRISPR.",
+        "builtOn": ["mendel", "darwin", "rontgen"]
+      }
+    ]
+  },
+  {
+    "id": "quanta",
+    "title": "Relativity and quanta",
+    "years": "1895 to 1929",
+    "nm": 490,
+    "intro": [
+      "In 1895 Röntgen found a ray that passed through flesh, and within three years the Curies had found elements that give off rays on their own. By 1900 the old picture of matter and light was failing on several fronts at once.",
+      "Planck, Einstein, Bohr and the quantum theorists rebuilt physics in thirty years. Light came in packets, space and time bent, and the atom turned out to be a thing of energy levels. Spectral lines supplied much of the evidence."
+    ],
+    "handoff": "Quantum theory and relativity left behind a new picture of matter, and instruments built on it began to reach the stars.",
+    "diagramLabel": "Waves from a single source passing through two slits and forming a bright and dark interference pattern on a screen.",
+    "lines": [
+      {
+        "id": "rontgen",
+        "year": "1895",
+        "sortYear": 1895,
+        "title": "Röntgen discovers X-rays at Würzburg",
+        "weight": 1,
+        "summary": "Wilhelm Röntgen finds a new penetrating radiation from a discharge tube and photographs the bones of a hand.",
+        "replaced": "Matter had seemed opaque or transparent only in ways that light could show. Röntgen's rays passed through flesh and left bones visible. He named them X-rays because he did not know what they were.",
+        "enabled": "Within a year X-ray images were used in medicine. X-ray diffraction by crystals later let Franklin and Gosling photograph DNA, and Becquerel's study of radiation followed from the same excitement.",
+        "builtOn": ["maxwell"]
+      },
+      {
+        "id": "curie",
+        "year": "1898",
+        "sortYear": 1898,
+        "title": "The Curies isolate polonium and radium",
+        "weight": 2,
+        "summary": "Marie and Pierre Curie separate two new radioactive elements from tonnes of ore, following Becquerel's 1896 discovery of radioactivity.",
+        "replaced": "Atoms had been treated as unchanging. Radioactivity, as Rutherford and Soddy showed in 1902, means some atoms emit energy and turn into others. Marie Curie coined the word radioactivity and won two Nobel Prizes, in physics and in chemistry.",
+        "enabled": "Radioactivity gave physicists a way to probe the inside of atoms, which led Rutherford to the nucleus. It also led to cancer radiotherapy and to the later study of nuclear energy.",
+        "builtOn": ["rontgen"]
+      },
+      {
+        "id": "planck",
+        "year": "1900",
+        "sortYear": 1900,
+        "title": "Planck's quanta explain the hot-body spectrum",
+        "weight": 2,
+        "summary": "Max Planck explains the light from a hot body by assuming energy is exchanged in discrete amounts.",
+        "replaced": "Classical theory predicted that a hot body emits unlimited energy at short wavelengths, which did not happen. Planck used a quantum of energy as a mathematical device, and historians debate whether he at first thought it was real.",
+        "enabled": "Einstein took the quantum seriously in 1905, and Bohr used it for the atom. The constant Planck introduced appears throughout quantum mechanics.",
+        "builtOn": ["kirchhoff", "maxwell"]
+      },
+      {
+        "id": "einstein-1905",
+        "year": "1905",
+        "sortYear": 1905,
+        "title": "Einstein's 1905 papers",
+        "weight": 3,
+        "summary": "Light quanta and the photoelectric effect, special relativity, and the equivalence of mass and energy, all within one year.",
+        "replaced": "Maxwell's theory of light treated it only as a wave and assumed a medium called the ether. Einstein dropped the ether, made the speed of light constant for all observers, and gave light a particle aspect.",
+        "enabled": "Relativity led to general relativity and to nuclear physics through E = mc squared. The photoelectric effect underlies solar cells and light sensors, and gave the quantum its first test outside heat radiation.",
+        "builtOn": ["maxwell", "planck", "newton"]
+      },
+      {
+        "id": "bohr",
+        "year": "1913",
+        "sortYear": 1913,
+        "title": "Bohr puts electrons on fixed energy levels",
+        "weight": 2,
+        "summary": "Niels Bohr's model of the atom explains why each element has its own spectral lines.",
+        "replaced": "Rutherford's nuclear atom should have collapsed under classical physics, and no one could explain the lines Kirchhoff catalogued. Bohr allowed only certain orbits, with light emitted when an electron jumps between them.",
+        "enabled": "The model accounted for hydrogen's spectrum and for the order of Mendeleev's table. Its failures with heavier atoms pushed physicists toward the full quantum mechanics of the 1920s.",
+        "builtOn": ["planck", "kirchhoff", "curie"]
+      },
+      {
+        "id": "relativity",
+        "year": "1915",
+        "sortYear": 1915,
+        "title": "Einstein's general relativity",
+        "weight": 3,
+        "summary": "Gravity is the curvature of spacetime; measurements of starlight bending during the 1919 eclipse support it.",
+        "replaced": "Newton described gravity as a force acting at a distance. Einstein described it as geometry shaped by mass and energy. It also explained a small discrepancy in the orbit of Mercury that Newton's law could not.",
+        "enabled": "The theory underlies modern cosmology, black holes and gravitational waves. GPS clocks must be corrected for its effects, and LIGO's detection in 2015 confirmed one of its predictions.",
+        "builtOn": ["einstein-1905", "newton"]
+      },
+      {
+        "id": "quantum",
+        "year": "1925",
+        "sortYear": 1925,
+        "title": "Quantum mechanics from 1925 to 1927",
+        "weight": 3,
+        "summary": "Heisenberg's matrix mechanics, Schrödinger's wave equation and the uncertainty principle give a full theory of the atom.",
+        "replaced": "Bohr's orbits were a patchwork of classical rules and quantum rules. The new theory described particles by wave functions and set a limit on what can be known at once, such as position and momentum. Its interpretation is still debated.",
+        "enabled": "It explains chemistry, the behaviour of semiconductors and the stability of matter. The transistor, the laser and the whole electronic economy follow from it.",
+        "builtOn": ["bohr", "einstein-1905"]
+      },
+      {
+        "id": "hubble",
+        "year": "1929",
+        "sortYear": 1929,
+        "title": "Hubble shows the universe is expanding",
+        "weight": 2,
+        "summary": "Distant galaxies recede faster the farther away they are, shown by redshifted spectral lines; Lemaître derived the relation in 1927.",
+        "replaced": "The universe had been assumed static. Hubble used redshifts that Vesto Slipher had measured and distances from Henrietta Leavitt's Cepheid relation, so the result drew on several people's work.",
+        "enabled": "Expansion pointed to a hot, dense beginning, which Penzias and Wilson's radiation later supported. It also posed the questions about dark energy that are still open.",
+        "builtOn": ["kirchhoff", "relativity"]
+      }
+    ]
+  },
+  {
+    "id": "machines",
+    "title": "Machines that compute",
+    "years": "1936 to 1991",
+    "nm": 465,
+    "intro": [
+      "In 1936 Turing described a machine that could carry out any computation. Eleven years later Bell Labs built a solid-state switch to run such machines cheaply, and Shannon gave information a unit, the bit.",
+      "Computers were then joined together. ARPANET sent its first message in 1969, and at CERN in 1989 a proposal for linked documents became the World Wide Web."
+    ],
+    "handoff": "Switches, bits and networks turned computation into infrastructure that every later field began to use.",
+    "diagramLabel": "Data packets travelling along different paths across a network of connected nodes.",
+    "lines": [
+      {
+        "id": "turing",
+        "year": "1936",
+        "sortYear": 1936,
+        "title": "Turing's machine that computes anything",
+        "weight": 3,
+        "summary": "\"On Computable Numbers\" describes an abstract machine that can carry out any computation, and shows some problems cannot be solved.",
+        "replaced": "Mathematicians had hoped every well-posed problem had a mechanical solution. Turing, and Alonzo Church independently, showed this was false. The decision problem has no general algorithm.",
+        "enabled": "The universal machine is the theoretical model of the stored-program computer. It gave the word algorithm a precise meaning, and it set the limits that computer science still studies.",
+        "builtOn": ["khwarizmi", "euclid"]
+      },
+      {
+        "id": "transistor",
+        "year": "1947",
+        "sortYear": 1947,
+        "title": "The transistor at Bell Labs",
+        "weight": 3,
+        "summary": "John Bardeen, Walter Brattain and William Shockley build the transistor, a solid-state switch and amplifier.",
+        "replaced": "Computers had used vacuum tubes, which were large, hot and unreliable. A transistor does the same job in a small piece of semiconductor. Bardeen and Brattain built the first, and Shockley developed the theory and a better design.",
+        "enabled": "Integrated circuits and microprocessors followed, and with them computers small enough to fly to the Moon. Every modern chip contains billions of transistors.",
+        "builtOn": ["quantum"]
+      },
+      {
+        "id": "shannon",
+        "year": "1948",
+        "sortYear": 1948,
+        "title": "Shannon measures information in bits",
+        "weight": 2,
+        "summary": "\"A Mathematical Theory of Communication\" defines information as a quantity and shows how much a channel can carry.",
+        "replaced": "Engineers treated each medium, telegraph or telephone, as its own problem. Shannon showed one theory covers all of them, with a limit on error-free transmission set by noise.",
+        "enabled": "Digital coding, compression and error correction rest on the theory. Packet networks, mobile phones and deep-space radio links all use coding built around limits that Shannon calculated.",
+        "builtOn": ["turing"]
+      },
+      {
+        "id": "arpanet",
+        "year": "1969",
+        "sortYear": 1969,
+        "title": "ARPANET sends its first message",
+        "weight": 2,
+        "summary": "On 29 October 1969 a terminal at UCLA sends \"LO\" to Stanford Research Institute before the system crashes.",
+        "replaced": "Computers had been isolated machines, and remote links were fixed telephone circuits. ARPANET passed data as packets over shared lines. The idea of packets came from Paul Baran and Donald Davies independently.",
+        "enabled": "Networks grew into the internet, with shared protocols adopted in 1983. Email, file transfer and the web all ran on this foundation.",
+        "builtOn": ["shannon", "transistor"]
+      },
+      {
+        "id": "web",
+        "year": "1989",
+        "sortYear": 1989,
+        "title": "Berners-Lee proposes the World Wide Web",
+        "weight": 3,
+        "summary": "Tim Berners-Lee proposes linked documents at CERN; the first website runs there by the end of 1990.",
+        "replaced": "Information on the internet sat on separate machines in incompatible forms. Berners-Lee combined hypertext with addresses, a protocol and a browser, so that anyone could link to any page.",
+        "enabled": "Physicists used it first to share papers, and the whole world soon followed. Genome databases, machine-learning datasets and open scientific archives all depend on it.",
+        "builtOn": ["arpanet"]
+      }
+    ]
+  },
+  {
+    "id": "space",
+    "title": "Leaving the ground",
+    "years": "1957 to 2022",
+    "nm": 445,
+    "intro": [
+      "On 4 October 1957 Sputnik orbited the Earth, and twelve years later Apollo 11 landed on the Moon. The trajectories were Newton's, and the guidance computers were built from transistors.",
+      "Instruments then read light that the eye cannot see. They found the cosmic microwave background, the first planets around other stars, and with the James Webb Space Telescope the infrared glow of distant galaxies."
+    ],
+    "handoff": "Telescopes in orbit and probes beyond it gave the next era data on a scale that needs new tools to read.",
+    "diagramLabel": "A spacecraft's path from a circular Earth orbit, curving out along a transfer ellipse to the Moon.",
+    "lines": [
+      {
+        "id": "sputnik",
+        "year": "1957",
+        "sortYear": 1957,
+        "title": "Sputnik 1 reaches orbit",
+        "weight": 2,
+        "summary": "The first artificial satellite is launched on 4 October 1957 and transmits radio signals for about three weeks.",
+        "replaced": "Orbit had been a calculation in Newton's Principia, and no object had gone there. Sputnik proved a rocket could lift a payload to orbital speed, about 8 kilometres per second.",
+        "enabled": "Weather, navigation and communications satellites followed, and so did crewed flight. The race it started led directly to Apollo 11 twelve years later.",
+        "builtOn": ["newton"]
+      },
+      {
+        "id": "cmb",
+        "year": "1965",
+        "sortYear": 1965,
+        "title": "Penzias and Wilson find the microwave background",
+        "weight": 2,
+        "summary": "Arno Penzias and Robert Wilson report a uniform microwave signal, leftover radiation from a hot early universe.",
+        "replaced": "A steady-state universe had rival support among cosmologists. The two found a persistent noise in their Bell Labs horn antenna that did not come from pigeons or equipment. A Princeton group had predicted such radiation.",
+        "enabled": "The background is the strongest evidence for a hot beginning. Satellite maps of its tiny variations, from COBE to Planck, fix the age and contents of the universe.",
+        "builtOn": ["hubble", "relativity"]
+      },
+      {
+        "id": "apollo",
+        "year": "1969",
+        "sortYear": 1969,
+        "title": "Apollo 11 lands on the Moon",
+        "weight": 3,
+        "summary": "Apollo 11 lands on the Moon on 20 July 1969; its guidance computer was an early large user of integrated circuits.",
+        "replaced": "The Moon had been a destination only in imagination. Reaching it required Newtonian orbital mechanics worked out in real time on a computer that weighed about 32 kilograms.",
+        "enabled": "Apollo brought back 382 kilograms of lunar rock, which fixed the Moon's age and helped to date the early solar system. Its demand for reliable electronics pulled integrated circuits into mass production.",
+        "builtOn": ["sputnik", "transistor", "newton"]
+      },
+      {
+        "id": "voyager",
+        "year": "1977",
+        "sortYear": 1977,
+        "title": "Voyager 1 and 2 launch",
+        "weight": 1,
+        "summary": "Two probes flew past the outer planets; Voyager 1 entered interstellar space in 2012.",
+        "replaced": "The outer planets had been points of light and smudges. Voyager's flybys showed volcanoes on Io and rings around all four giant planets. The mission used a rare alignment of planets, and that was not repeatable.",
+        "enabled": "Voyager 1 is the first human-made object in interstellar space, and it still sends data. Its flybys set the questions that later missions to Jupiter and Saturn were built to answer.",
+        "builtOn": ["newton", "apollo"]
+      },
+      {
+        "id": "exoplanet",
+        "year": "1995",
+        "sortYear": 1995,
+        "title": "Mayor and Queloz find 51 Pegasi b",
+        "weight": 2,
+        "summary": "Michel Mayor and Didier Queloz detect a planet around a Sun-like star from the wobble in the star's spectral lines.",
+        "replaced": "Planets beyond the Sun had been presumed, and none had been confirmed around a main-sequence star. This one was a gas giant orbiting in about four days, which no model of the solar system predicted.",
+        "enabled": "Thousands of exoplanets are now known, many found by the same Doppler method or by the transit method that Kepler's mission used. They turned the question of life elsewhere into an observational one.",
+        "builtOn": ["kirchhoff", "kepler"]
+      },
+      {
+        "id": "jwst",
+        "year": "2022",
+        "sortYear": 2022,
+        "title": "Webb's first science images",
+        "weight": 2,
+        "summary": "The James Webb Space Telescope released its first images in July 2022; it observes in infrared, where cosmic expansion has stretched ancient light.",
+        "replaced": "Hubble's view of the earliest galaxies stopped where their light shifted out of visible range. Webb's 6.5-metre mirror and infrared instruments reach past that limit and read atmospheres of planets.",
+        "enabled": "Webb studies galaxies from the first few hundred million years and the chemistry of exoplanet atmospheres. Its data are only the start of what the telescope was built to deliver.",
+        "builtOn": ["hubble", "exoplanet"]
+      }
+    ]
+  },
+  {
+    "id": "code",
+    "title": "Reading the code",
+    "years": "2003 to today",
+    "nm": 425,
+    "intro": [
+      "The most recent lines come from reading codes of several kinds: the genome, the proteins it specifies, the particles that make up matter, and ripples in spacetime.",
+      "Computing and networks are the common tools. Genome sequences sit in shared databases, neural networks predict protein folds, and detectors at CERN and LIGO filter huge data streams. Which of these will prove lasting, history has yet to say."
+    ],
+    "handoff": "Readable codes in biology, matter and spacetime leave questions that none of the present instruments can answer yet.",
+    "diagramLabel": "Charged particle tracks curving in different directions out of a single collision point.",
+    "lines": [
+      {
+        "id": "genome",
+        "year": "2003",
+        "sortYear": 2003,
+        "title": "The Human Genome Project completes",
+        "weight": 2,
+        "summary": "The Human Genome Project is declared complete in April 2003, with about three billion base pairs sequenced.",
+        "replaced": "The human genome had been known only in fragments. The public project and a rival company effort both produced drafts in 2001. Gaps remained, and a gap-free sequence of a human genome, without the Y chromosome, appeared only in 2022.",
+        "enabled": "A reference sequence made it possible to find genes tied to disease and to compare people and species. Gene editing and protein-structure prediction both rely on this reference.",
+        "builtOn": ["dna", "web"]
+      },
+      {
+        "id": "higgs",
+        "year": "2012",
+        "sortYear": 2012,
+        "title": "CERN announces a Higgs-like particle",
+        "weight": 3,
+        "summary": "ATLAS and CMS announce a new particle consistent with the Higgs boson on 4 July 2012, predicted in 1964.",
+        "replaced": "The Standard Model had no explanation of mass that could be tested. Peter Higgs, François Englert and Robert Brout, among others, proposed a field in 1964. The two detectors found the particle at about 125 GeV.",
+        "enabled": "The result completed the Standard Model's list of particles. Measuring how the particle behaves is the main task of the Large Hadron Collider, and any deviation would point to new physics.",
+        "builtOn": ["quantum", "einstein-1905", "web"]
+      },
+      {
+        "id": "crispr",
+        "year": "2012",
+        "sortYear": 2012,
+        "title": "Charpentier and Doudna program CRISPR-Cas9",
+        "weight": 2,
+        "summary": "Emmanuelle Charpentier and Jennifer Doudna show that CRISPR-Cas9 can be programmed to cut chosen DNA sequences.",
+        "replaced": "Editing a genome had required slow, specific tools for each target. CRISPR is a bacterial immune system, and the two showed it could be redirected with a short guide RNA. They shared the 2020 Nobel Prize in Chemistry.",
+        "enabled": "Laboratories edit genes in plants, animals and human cells at low cost. The first CRISPR-based therapies for blood disease have been approved, and the ethics of editing embryos is an open debate.",
+        "builtOn": ["dna", "genome"]
+      },
+      {
+        "id": "alexnet",
+        "year": "2012",
+        "sortYear": 2012,
+        "title": "AlexNet wins the ImageNet contest",
+        "weight": 2,
+        "summary": "A deep neural network trained on graphics processors wins the ImageNet image-recognition contest by a wide margin.",
+        "replaced": "Image recognition had relied on hand-designed features. Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton showed that a network could learn them from a million labelled images, given enough computing power.",
+        "enabled": "Deep learning spread to speech, translation and science. AlphaFold uses the approach for biology, and the same hardware that served video games became the base for training.",
+        "builtOn": ["turing", "transistor", "web"]
+      },
+      {
+        "id": "ligo",
+        "year": "2015",
+        "sortYear": 2015,
+        "title": "LIGO hears two black holes merge",
+        "weight": 3,
+        "summary": "LIGO detects gravitational waves from two merging black holes on 14 September 2015.",
+        "replaced": "Einstein predicted gravitational waves in 1916, and for a century they were beyond measurement. The signal moved the mirrors by far less than the width of a proton, over arms 4 kilometres long.",
+        "enabled": "Gravity is now an observing channel beside light. In 2017 a neutron-star merger was seen in both gravitational waves and light, and the observations tested relativity with strong gravity.",
+        "builtOn": ["relativity"]
+      },
+      {
+        "id": "alphafold",
+        "year": "2020",
+        "sortYear": 2020,
+        "title": "AlphaFold 2 predicts protein structures",
+        "weight": 2,
+        "summary": "At the CASP14 assessment, AlphaFold 2 predicts protein structures to near-experimental accuracy.",
+        "replaced": "Determining a protein's shape took months of laboratory work, and predicting it from sequence had been an open problem for fifty years. AlphaFold 2 matched experiments for many, though not all, proteins.",
+        "enabled": "A public database now holds predicted structures for over 200 million proteins. Biologists use them to plan experiments and design drugs, and they check each prediction against laboratory data.",
+        "builtOn": ["alexnet", "genome"]
+      }
+    ]
+  }
+]
