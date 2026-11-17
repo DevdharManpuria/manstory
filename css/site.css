@@ -408,12 +408,30 @@ main {
 }
 .scene {
   position: relative;
-  height: 225vh;
+  height: 165vh;
 }
-.scene--hero { height: 170vh; }
-.scene--intro { height: 260vh; }
-.scene--open { height: 240vh; }
+.scene--hero { height: 140vh; }
+.scene--intro { height: 220vh; }
+.scene--open { height: 185vh; }
 .scene--close { height: 100vh; }
+/* A soft snap point in the middle of each pin, where the shape is fully formed. */
+html {
+  scroll-snap-type: y proximity;
+}
+.scene::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc((100% - 100vh) / 2);
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  scroll-snap-align: start;
+}
+.scene--hero::before,
+.scene--close::before {
+  top: 0;
+}
 .pin {
   position: sticky;
   top: 0;
@@ -1394,8 +1412,8 @@ dialog.sheet.is-open::backdrop {
   .hud__now {
     justify-self: center;
   }
-  .scene { height: 205vh; }
-  .scene--intro { height: 230vh; }
+  .scene { height: 155vh; }
+  .scene--intro { height: 200vh; }
   .scene--close { height: 100vh; }
   .pin {
     align-items: end;

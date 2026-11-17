@@ -38,7 +38,7 @@ if (!stage) root.classList.add('no-webgl');
 // Each scene is taller than the viewport and its content is pinned. While pinned the
 // value holds at the scene's index; between two pins it runs from one index to the next.
 // The morph also eats into the edges of each pin, so it plays out over more scroll.
-const MORPH_PAD = 0.45; // of a viewport, taken from each side of a pin
+const MORPH_PAD = 0.3; // of a viewport, taken from each side of a pin
 let marks = [];
 let vh = window.innerHeight;
 function measure() {
