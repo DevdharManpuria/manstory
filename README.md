@@ -20,29 +20,35 @@
 
 ## Overview
 
-**Manstory** is built as a self-contained digital monograph rather than a standard web app. Every diagram, scroll transition, and typographic scale is engineered from scratch using native Web APIs, custom SVG geometry, and zero third-party runtime frameworks.
+**Manstory** is a scroll-driven story built from scratch on native Web APIs: no frameworks, no runtime dependencies.
 
-* **10 Interactive Chapters:** Each era pairs narrative prose with a custom-built, mathematically driven SVG diagram module (`sky`, `method`, `matter`, `life`, `quanta`, `space`, `code`, `machines`, `revolution`, and `reasons`).
-* **18 Archival Plates:** High-resolution WebP plates with structured historical metadata, attribution, and focal-point calibration—spanning *Plimpton 322*, *Euclid's Elements*, Hooke's *Micrographia*, and *JWST*.
-* **Editorial Typography:** Self-hosted variable WOFF2 cuts of **Archivo** (display & UI) and **STIX Two Text** (body & mathematical notation).
-* **Scroll-Synchronized Rail:** A persistent chapter rail and continuous reading line driven by `IntersectionObserver` and `requestAnimationFrame` with full keyboard and `prefers-reduced-motion` support.
+* **One morphing object:** A single WebGL2 field of ~16,000 particles stays on screen for the whole page and re-forms into a new shape for each era: the Sun, Fraunhofer's spectrum, the Moon's phases, a Platonic solid, a lens, orbits, magnetic field lines, DNA, curved spacetime, a chip, a ringed planet, a neural network, a galaxy and finally the spectrum bent into a ring. Every formation is baked into a float texture and blended on the GPU.
+* **Pinned scenes:** Each chapter pins a short summary (title, one paragraph, three highlights) while the particles morph between scenes, with a spectrum rail tracking where you are.
+* **Detail on demand:** The full text of every discovery (before and after, links to what it built on and led to, archival plates) lives in slide-up sheets opened from each chapter.
+* **18 Archival Plates:** WebP plates from Wikimedia Commons with credit and licence for each one.
+* **Editorial Typography:** Self-hosted variable **Archivo** (width axis narrows from red to blue) and **STIX Two Text** italics.
+* **Accessible fallbacks:** Works without WebGL or JavaScript, and honours `prefers-reduced-motion`.
 
 ---
 
-## The Chronicle
+## The Formations
 
-| Chapter | Module | Archival Plates |
-| :--- | :--- | :--- |
-| **01 · Sky** | `js/diagrams/sky.js` | Ishango Bone · Plimpton 322 · Copernicus (*De revolutionibus*) |
-| **02 · Method** | `js/diagrams/method.js` | Euclid's *Elements* · Ibn al-Haytham (*Kitāb al-Manāẓir*) · Galileo (*Sidereus Nuncius*) |
-| **03 · Matter** | `js/diagrams/matter.js` | Fraunhofer's Solar Spectrum · Röntgen's First X-Ray |
-| **04 · Life** | `js/diagrams/life.js` | Hooke's *Micrographia* · Darwin's Notebook B ("I think" tree) |
-| **05 · Quanta** | `js/diagrams/quanta.js` | 1927 Solvay Conference · CERN Higgs Boson Candidate Event |
-| **06 · Space** | `js/diagrams/space.js` | Einstein's 1919 Eclipse Expedition · LIGO Hanford/Livingston Strain |
-| **07 · Code** | `js/diagrams/code.js` | Bell Labs Point-Contact Transistor (1947) |
-| **08 · Machines** | `js/diagrams/machines.js` | Apollo 11 *Earthrise* · Voyager Golden Record Cover |
-| **09 · Revolution** | `js/diagrams/revolution.js` | James Webb Space Telescope Deep Field (SMACS 0723) |
-| **10 · Reasons** | `js/diagrams/reasons.js` | Synthesis & Epilogue Diagram |
+| Scene | Formation |
+| :--- | :--- |
+| Opening | The Sun |
+| How to read | Fraunhofer's spectrum with its dark lines |
+| 01 · Counting the sky | Moon phases over the Ishango notches |
+| 02 · Causes without gods | Icosahedron inside Eratosthenes' great circle |
+| 03 · Numbers and experiments | Ibn al-Haytham's lens and focus |
+| 04 · The Earth moves | Sun-centred ellipses, Jupiter's four moons |
+| 05 · Matter and current | Faraday's lines of force |
+| 06 · The record of life | The double helix |
+| 07 · Relativity and quanta | Spacetime curved by a mass |
+| 08 · Machines that compute | A die and its traces |
+| 09 · Leaving the ground | A ringed planet |
+| 10 · Reading the code | A layered neural network |
+| Past the visible | A spiral galaxy in a dark halo |
+| Close | The whole spectrum as a ring |
 
 ---
 
@@ -53,28 +59,20 @@
 │   ├── fonts/          # Self-hosted variable WOFF2 fonts (Archivo, STIX Two Text)
 │   └── plates/         # 18 archival WebP plates + per-plate JSON metadata
 ├── content/
-│   ├── open.json       # Opening sequence copy and prologue data
-│   ├── chapters.json   # Narrative body, milestones, and chapter structure
-│   ├── plates.json     # Archival plate captions and historical context
-│   └── references.json # Primary sources and bibliography
+│   ├── chapters.json   # Chapters and their discoveries
+│   ├── open.json       # The open questions
+│   ├── plates.json     # Plate files, alt text and credits
+│   └── references.json # Sources
 ├── css/
-│   ├── tokens.css      # Color palette, fluid type scale, and spacing tokens
-│   ├── base.css        # Document reset and editorial grid layout
-│   ├── hero.css        # Opening sequence and title treatment
-│   ├── chapter.css     # Chapter spreads, plates, and diagram frames
-│   ├── rail.css        # Sticky progress rail and chapter index
-│   ├── line.css        # Continuous vertical reading thread
-│   └── close.css       # Bibliography and colophon styling
+│   ├── fonts.css       # @font-face declarations
+│   └── site.css        # Everything else
 ├── js/
-│   ├── diagrams/       # 11 modular SVG interactive simulations + shared math utils
-│   ├── main.js         # Application bootstrap and content hydration
-│   ├── hero.js         # Opening canvas and scroll handoff
-│   ├── scroll.js       # Viewport tracking and section progress
-│   ├── rail.js         # Chapter navigation state
-│   ├── lines.js        # Reading thread geometry
-│   └── record.js       # Plate and reference binding
-├── index.html          # Main document shell
-├── build.mjs           # Static production bundler & verifier
+│   ├── main.js         # Scroll-to-scene mapping, HUD, render loop
+│   ├── stage.js        # WebGL2 particle renderer
+│   ├── shapes.js       # The particle formations
+│   └── sheets.js       # Chapter, index and sources sheets
+├── index.html          # Generated by build.mjs; do not edit by hand
+├── build.mjs           # Static page generator & content validator
 └── serve.mjs           # Zero-dependency local development server
 ```
 

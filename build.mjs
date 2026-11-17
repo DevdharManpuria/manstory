@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 // Dark Lines: static page generator. Zero dependencies.
 // Usage: node build.mjs [--content <dir>]
+//
+// The page is a pinned scroll story: one WebGL particle field (js/stage.js) changes
+// shape from scene to scene, and each chapter's full text lives in a slide-up sheet.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { resolve, dirname, posix, extname } from 'node:path';
+import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
@@ -32,22 +35,21 @@ function readJson(name, fallback, required = false) {
   }
 }
 
-// ---------- SPEC section 3 table ----------
+// ---------- palette: one hue per chapter, red end to the edge of the visible ----------
+// `shape` names the particle formation js/shapes.js builds for that scene.
 const TABLE = {
-  sky:        { ground: 'oklch(0.40 0.16 25)',  ink: 'light', wdth: 125 },
-  reasons:    { ground: 'oklch(0.50 0.19 32)',  ink: 'light', wdth: 118 },
-  method:     { ground: 'oklch(0.74 0.17 58)',  ink: 'dark',  wdth: 110 },
-  revolution: { ground: 'oklch(0.89 0.17 96)',  ink: 'dark',  wdth: 102 },
-  matter:     { ground: 'oklch(0.85 0.19 125)', ink: 'dark',  wdth: 95 },
-  life:       { ground: 'oklch(0.72 0.18 150)', ink: 'dark',  wdth: 88 },
-  quanta:     { ground: 'oklch(0.79 0.12 200)', ink: 'dark',  wdth: 80 },
-  machines:   { ground: 'oklch(0.48 0.17 255)', ink: 'light', wdth: 74 },
-  space:      { ground: 'oklch(0.35 0.16 264)', ink: 'light', wdth: 68 },
-  code:       { ground: 'oklch(0.26 0.13 270)', ink: 'light', wdth: 64 },
-  open:       { ground: 'oklch(0.13 0.03 272)', ink: 'light', wdth: 62 },
+  sky:        { hue: 25,  ground: 'oklch(0.40 0.16 25)',  wdth: 125, shape: 'moons' },
+  reasons:    { hue: 32,  ground: 'oklch(0.50 0.19 32)',  wdth: 118, shape: 'solid' },
+  method:     { hue: 58,  ground: 'oklch(0.74 0.17 58)',  wdth: 110, shape: 'lens' },
+  revolution: { hue: 96,  ground: 'oklch(0.89 0.17 96)',  wdth: 102, shape: 'orbits' },
+  matter:     { hue: 125, ground: 'oklch(0.85 0.19 125)', wdth: 95,  shape: 'field' },
+  life:       { hue: 150, ground: 'oklch(0.72 0.18 150)', wdth: 88,  shape: 'helix' },
+  quanta:     { hue: 200, ground: 'oklch(0.79 0.12 200)', wdth: 80,  shape: 'spacetime' },
+  machines:   { hue: 255, ground: 'oklch(0.48 0.17 255)', wdth: 74,  shape: 'chip' },
+  space:      { hue: 264, ground: 'oklch(0.35 0.16 264)', wdth: 68,  shape: 'planet' },
+  code:       { hue: 270, ground: 'oklch(0.26 0.13 270)', wdth: 64,  shape: 'network' },
+  open:       { hue: 272, ground: 'oklch(0.13 0.03 272)', wdth: 62,  shape: 'galaxy' },
 };
-const CLOSE_GROUND = 'oklch(0.11 0.02 272)';
-const THEME_COLOR = '#171011'; // approx oklch(0.13 0.02 25)
 
 // ---------- helpers ----------
 const esc = (s) =>
@@ -57,44 +59,30 @@ const esc = (s) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+const pad = (n) => String(n).padStart(2, '0');
+const pct = (n) => `${+n.toFixed(3)}%`;
 
-function mulberry32(a) {
-  return function () {
-    a |= 0; a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-function seedFrom(str) {
-  let h = 1779033703 ^ str.length;
-  for (let i = 0; i < str.length; i++) {
-    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
-    h = (h << 13) | (h >>> 19);
-  }
-  return h >>> 0;
-}
-const hueOf = (oklch) => Number(oklch.replace(')', '').trim().split(/\s+/).pop());
-const lightnessOf = (oklch) => Number(oklch.match(/oklch\(\s*([\d.]+)/)[1]);
-const pct = (n) => `${+n.toFixed(2)}%`;
+const ARROW = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+const ARROW_UP = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20V5M6 11l6-6 6 6"/></svg>';
+const CROSS = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+const PLUS = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg>';
 
-function faints(rng, count, yMin, yMax) {
-  let out = '';
-  for (let i = 0; i < count; i++) {
-    const y = yMin + rng() * (yMax - yMin);
-    const a = 0.1 + rng() * 0.18;
-    out += `<span class="faint" aria-hidden="true" style="--y:${pct(y)};--a:${a.toFixed(2)}"></span>`;
-  }
-  return out;
+// Title with its last word set in the italic serif.
+function title(t) {
+  const words = String(t).trim().split(/\s+/);
+  const last = words.pop();
+  const head = words.map((w, i) => `<span class="w" style="--wi:${i}"><span>${esc(w)}</span></span>`).join(' ');
+  return `${head}${head ? ' ' : ''}<span class="w" style="--wi:${words.length}"><em>${esc(last)}</em></span>`;
 }
-function between(rng, lo, hi) {
-  return lo + Math.floor(rng() * (hi - lo + 1));
+// Words wrapped for the scroll-scrubbed reveal.
+function scrub(text) {
+  return String(text)
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => `<span class="sw">${esc(w)}</span>`)
+    .join(' ');
 }
-
-const ARROW_RIGHT =
-  '<svg class="btn__arrow" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M3 12h16M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>';
-const ARROW_UP =
-  '<svg class="btn__arrow" data-up viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 21V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>';
+const paragraphs = (arr) => (arr || []).map((p) => `<p>${esc(p)}</p>`).join('\n');
 
 // ---------- load + validate ----------
 const chapters = readJson('chapters.json', null, true);
@@ -104,7 +92,7 @@ const references = readJson('references.json', []);
 
 if (!Array.isArray(chapters) || !chapters.length) fail('chapters.json must be a non-empty array');
 
-const seen = new Map(); // id -> kind
+const seen = new Map();
 const lineById = new Map();
 function claim(id, where) {
   if (!id) fail(`empty id in ${where}`);
@@ -113,7 +101,7 @@ function claim(id, where) {
 }
 for (const c of chapters) {
   claim(c.id, 'chapter');
-  if (!TABLE[c.id]) fail(`chapter id "${c.id}" is not in the colour table (SPEC section 3)`);
+  if (!TABLE[c.id]) fail(`chapter id "${c.id}" is not in the colour table`);
   if (c.id === 'open') fail('chapters.json must not contain the "open" chapter');
   for (const l of c.lines || []) {
     claim(l.id, `line in chapter ${c.id}`);
@@ -134,7 +122,6 @@ for (const q of open.questions || []) {
   }
 }
 
-// derived ledTo (lines only)
 const ledTo = new Map();
 for (const c of chapters) {
   for (const l of c.lines || []) {
@@ -146,249 +133,263 @@ for (const c of chapters) {
 }
 const bySort = (a, b) => lineById.get(a).line.sortYear - lineById.get(b).line.sortYear;
 
-// ---------- spectrum geometry ----------
+// ---------- spectrum geometry: where each dark line sits, 0..1 across the visible ----------
 const allChapters = [
   ...chapters.map((c) => ({ ...c, kind: 'chapter' })),
-  {
-    id: 'open', kind: 'open', title: open.title, years: open.years || 'Not yet dated',
-    intro: open.intro || [], lines: (open.questions || []).map((q) => ({ ...q, _q: true })),
-  },
+  { id: 'open', kind: 'open', title: open.title, years: open.years || 'Not yet dated', nm: open.nm,
+    intro: open.intro || [], lines: (open.questions || []).map((q) => ({ ...q, _q: true })) },
 ];
-const N = allChapters.length;
-const segW = 100 / N;
-const ticks = []; // { id, href, x, weight, label, tone, open }
+const SEG = 1 / allChapters.length;
+const ticks = [];
 allChapters.forEach((c, ci) => {
-  const t = TABLE[c.id];
-  const gl = lightnessOf(t.ground);
-  const hue = hueOf(t.ground);
   const n = c.lines.length;
   c.lines.forEach((l, i) => {
-    const x = ci * segW + ((i + 1) / (n + 1)) * segW;
-    // dated lines are always dark: a near-black tinted to the local hue, darker than the ground.
-    // Only the undated questions are bright.
-    const tone = l._q ? 'bright' : 'dark';
-    const lc = `oklch(${gl < 0.3 ? 0.04 : gl < 0.45 ? 0.06 : 0.08} 0.03 ${hue})`;
     ticks.push({
-      lc,
-      closeLabel: l._q ? l.title : `${l.year}: ${l.title}`,
-      id: l.id,
-      href: l._q ? `#q-${l.id}` : `#d-${l.id}`,
-      x,
-      weight: l._q ? 2 : l.weight || 1,
+      x: ci * SEG + ((i + 1) / (n + 1)) * SEG,
+      w: l._q ? 2 : l.weight || 1,
+      q: !!l._q,
       label: l._q ? `Open question: ${l.title}` : `${l.year}: ${l.title}`,
-      tone,
     });
   });
 });
-const gradientStops = [];
-allChapters.forEach((c, ci) => {
-  const g = TABLE[c.id].ground;
-  const a = ci === 0 ? 0 : ci * segW + segW * 0.2;
-  const b = ci === N - 1 ? 100 : ci * segW + segW * 0.8;
-  gradientStops.push(`${g} ${pct(a)}`, `${g} ${pct(b)}`);
-});
-const GRADIENT = `linear-gradient(to right in oklch, ${gradientStops.join(', ')})`;
-
-// seeded stepping for hero entrance delays (non-uniform 18-34ms)
-const heroRng = mulberry32(seedFrom('hero'));
-let heroDelay = 700;
-const heroDelays = ticks.map(() => {
-  const d = heroDelay;
-  heroDelay += 18 + Math.round(heroRng() * 16);
-  return d;
-});
-
-// ---------- fonts preload ----------
-function fontPreloads() {
-  const p = resolve(ROOT, 'css/fonts.css');
-  if (!existsSync(p)) return '';
-  const css = readFileSync(p, 'utf8');
-  const urls = [...css.matchAll(/url\(\s*['"]?([^'")]+\.woff2?)['"]?\s*\)/gi)].map((m) => m[1]);
-  const pick = (re) => urls.find((u) => re.test(u));
-  const wanted = [pick(/archivo/i), pick(/stix[^/]*?(?<!italic)\.woff2?$/i) || pick(/stix/i)].filter(Boolean);
-  return [...new Set(wanted)]
-    .map((u) => {
-      const href = posix.normalize(posix.join('css', u));
-      const type = extname(u) === '.woff' ? 'font/woff' : 'font/woff2';
-      return `<link rel="preload" href="${esc(href)}" as="font" type="${type}" crossorigin>`;
-    })
-    .join('\n');
-}
+const railGradient = `linear-gradient(to bottom in oklch, ${allChapters
+  .map((c, ci) => {
+    const g = TABLE[c.id].ground;
+    return `${g} ${pct(ci * SEG * 100 + SEG * 20)}, ${g} ${pct(ci * SEG * 100 + SEG * 80)}`;
+  })
+  .join(', ')})`;
 
 // ---------- fragments ----------
-function threadLinks(ids) {
-  return ids
+function plateFigure(id) {
+  const p = plates[id];
+  if (!p) return '';
+  const credit = [p.credit, p.license].filter(Boolean).map(esc).join(' · ');
+  return `<figure class="find__plate" style="--ar:${esc(p.w)}/${esc(p.h)}"><img src="${esc(p.file)}" width="${esc(p.w)}" height="${esc(p.h)}" alt="${esc(p.alt)}" loading="lazy" decoding="async">${credit ? `<figcaption>${credit}</figcaption>` : ''}</figure>`;
+}
+function linkList(label, ids) {
+  if (!ids.length) return '';
+  const links = ids
     .slice()
     .sort(bySort)
     .map((id) => {
       const { line } = lineById.get(id);
-      return `<a class="thread" href="#d-${esc(id)}" data-thread="${esc(id)}">${esc(line.year)}, ${esc(line.title)}</a>`;
+      return `<a class="chip" href="#f-${esc(id)}" data-goto="${esc(id)}"><span>${esc(line.year)}</span> ${esc(line.title)}</a>`;
     })
-    .join(' ');
+    .join('');
+  return `<div class="find__links"><span class="find__label">${label}</span><div class="chips">${links}</div></div>`;
 }
-function linksRow(label, ids) {
-  if (!ids.length) return '';
-  return `<p class="line__links-row"><span class="line__links-label">${label}</span> ${threadLinks(ids)}</p>`;
-}
-function words(title) {
-  return String(title)
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((w) => `<span class="word"><span>${esc(w)}</span></span>`)
-    .join(' ');
-}
-function paragraphs(arr) {
-  return (arr || []).map((p) => `<p>${esc(p)}</p>`).join('\n');
-}
-
-function renderLine(l) {
-  const built = (l.builtOn || []).slice().sort(bySort);
-  const led = (ledTo.get(l.id) || []).slice().sort(bySort);
-  const plate = plates[l.plate || l.id] || null;
-  const plateHtml = plate
-    ? `<figure class="plate"><img src="${esc(plate.file)}" width="${esc(plate.w)}" height="${esc(plate.h)}" alt="${esc(plate.alt)}" loading="lazy" decoding="async"></figure>`
-    : '';
+function renderFind(l, i) {
+  const built = l.builtOn || [];
+  const led = ledTo.get(l.id) || [];
   const w = [1, 2, 3].includes(l.weight) ? l.weight : 1;
-  return `<li class="line" id="d-${esc(l.id)}" data-line="${esc(l.id)}" data-weight="${w}" data-built-on="${esc(built.join(','))}" data-led-to="${esc(led.join(','))}">
-<span class="line__rule" aria-hidden="true"></span>
-<div class="wrap line__row">
-<h3 class="line__head">
-<button class="line__toggle" type="button" aria-expanded="false" aria-controls="p-${esc(l.id)}">
-<span class="line__year">${esc(l.year)}</span>
-<span class="line__title">${esc(l.title)}</span>
-<span class="line__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
-</button>
-</h3>
-<p class="line__summary">${esc(l.summary)}</p>
+  return `<article class="find" id="f-${esc(l.id)}" data-weight="${w}" style="--i:${i}">
+<div class="find__meta"><span class="find__year">${esc(l.year)}</span>${w === 3 ? '<span class="tag">Landmark</span>' : ''}</div>
+<h3 class="find__title">${esc(l.title)}</h3>
+<p class="find__summary">${esc(l.summary)}</p>
+${plateFigure(l.plate || l.id)}
+<details class="more">
+<summary><span>Before and after</span>${PLUS}</summary>
+<div class="more__body">
+<div><h4>What it replaced</h4><p>${esc(l.replaced)}</p></div>
+<div><h4>What it made possible</h4><p>${esc(l.enabled)}</p></div>
 </div>
-<div class="line__panel" id="p-${esc(l.id)}" data-panel>
-<div class="line__panel-clip">
-<div class="wrap line__panel-inner">
-<div class="line__text">
-<h4>What it replaced</h4>
-<p>${esc(l.replaced)}</p>
-<h4>What it made possible</h4>
-<p>${esc(l.enabled)}</p>
-</div>
-${plateHtml}
-<div class="line__links">
-${linksRow('Built on', built)}
-${linksRow('Led to', led)}
-</div>
-</div>
-</div>
-</div>
-</li>`;
+</details>
+${linkList('Built on', built)}${linkList('Led to', led)}
+</article>`;
 }
 
-function renderQuestion(q) {
-  const built = (q.builtOn || []).slice().sort(bySort);
-  return `<li class="line line--open" id="q-${esc(q.id)}" data-line="q-${esc(q.id)}" data-built-on="${esc(built.join(','))}">
-<span class="line__rule" aria-hidden="true"></span>
-<div class="wrap line__row">
-<h3 class="line__head line__head--static">${esc(q.title)}</h3>
-<p class="line__summary">${esc(q.text)}</p>
-${linksRow('Built on', built)}
-</div>
-</li>`;
+// Highlights shown on the main page: up to three, heaviest first, then shown in date order.
+function highlights(lines) {
+  return lines
+    .slice()
+    .sort((a, b) => (b.weight || 1) - (a.weight || 1) || a.sortYear - b.sortYear)
+    .slice(0, 3)
+    .sort((a, b) => a.sortYear - b.sortYear);
 }
 
-function chapterStyle(c, i) {
+function chapterScene(c, ci, sceneIndex) {
   const t = TABLE[c.id];
-  const next = allChapters[i + 1];
-  const nextGround = next ? TABLE[next.id].ground : CLOSE_GROUND;
-  return `--ground:${t.ground};--ground-next:${nextGround};--hue:${hueOf(t.ground)};--wdth:${t.wdth}`;
-}
-
-function renderChapter(c, i) {
-  const t = TABLE[c.id];
-  const rng = mulberry32(seedFrom(c.id));
-  const isOpen = c.kind === 'open';
-  const nm = isOpen ? 'Below 380 nm' : `${c.nm} nm`;
-  const label = isOpen
-    ? 'A spectrum fading past the visible edge'
-    : c.diagramLabel || `Diagram for ${c.title}`;
-  const chapFaints = faints(rng, between(rng, 5, 9), 4, 92);
-  const fadeFaints = faints(rng, between(rng, 2, 4), 6, 94);
-  const lines = isOpen
-    ? `<ol class="lines lines--open">\n${c.lines.map(renderQuestion).join('\n')}\n</ol>`
-    : `<ol class="lines">\n${c.lines.map(renderLine).join('\n')}\n</ol>`;
-  const handoff = !isOpen && c.handoff ? `<p class="wrap chapter__handoff">${esc(c.handoff)}</p>` : '';
-  return `<section class="chapter${isOpen ? ' chapter--open' : ''}" id="c-${esc(c.id)}" data-chapter="${esc(c.id)}" data-ink="${t.ink}" style="${chapterStyle(c, i)}">
-<div class="wrap chapter__head">
-<h2 class="chapter__title">${words(c.title)}</h2>
-<p class="chapter__span"><span class="chapter__years">${esc(c.years)}</span><span class="chapter__nm">${esc(nm)}</span></p>
-<figure class="chapter__figure"><canvas class="diagram" data-diagram="${esc(c.id)}" role="img" aria-label="${esc(label)}"></canvas></figure>
-<div class="chapter__intro">
-${paragraphs(c.intro)}
+  const side = ci % 2 === 0 ? 'left' : 'right';
+  const marks = highlights(c.lines)
+    .map((l) => `<li><button type="button" data-open="${esc(c.id)}" data-focus="${esc(l.id)}"><span class="mark__year">${esc(l.year)}</span><span class="mark__title">${esc(l.title)}</span></button></li>`)
+    .join('');
+  return `<section class="scene scene--chapter" id="c-${esc(c.id)}" data-scene="${sceneIndex}" data-shape="${t.shape}" data-side="${side}" data-label="${esc(c.title)}" data-nm="${esc(c.nm)} nm" data-hue="${t.hue}" style="--hue:${t.hue};--wdth:${t.wdth}%" aria-labelledby="t-${esc(c.id)}">
+<div class="pin">
+<div class="copy">
+<p class="kicker r"><span class="kicker__n">${pad(ci + 1)}</span><span class="kicker__bar"></span><span>${esc(c.nm)} nm</span></p>
+<h2 class="display" id="t-${esc(c.id)}">${title(c.title)}</h2>
+<p class="years r">${esc(c.years)}</p>
+<p class="lede r">${esc(c.intro[0])}</p>
+<ol class="marks r">${marks}</ol>
+<button class="cta r" type="button" data-open="${esc(c.id)}" aria-haspopup="dialog"><span class="cta__label">Read the chapter</span><span class="cta__count">${c.lines.length} discoveries</span>${ARROW}</button>
 </div>
 </div>
-<div class="chapter__faints" aria-hidden="true">${chapFaints}</div>
-${lines}
-${handoff}
-<div class="chapter__fade" aria-hidden="true">${fadeFaints}</div>
 </section>`;
 }
 
+function chapterSheet(c, ci) {
+  const t = TABLE[c.id];
+  const next = allChapters[ci + 1];
+  const finds = c.lines.map(renderFind).join('\n');
+  return `<dialog class="sheet" id="sheet-${esc(c.id)}" data-sheet="${esc(c.id)}" style="--hue:${t.hue};--wdth:${t.wdth}%" aria-labelledby="st-${esc(c.id)}">
+<div class="sheet__panel">
+<div class="sheet__bar"><span class="sheet__crumb">${pad(ci + 1)} · ${esc(c.nm)} nm</span><button class="sheet__close" type="button" data-close>${CROSS}<span>Close</span></button></div>
+<div class="sheet__scroll" data-scroll>
+<div class="sheet__grid">
+<header class="sheet__head">
+<p class="kicker"><span class="kicker__n">${pad(ci + 1)}</span><span class="kicker__bar"></span><span>${esc(c.years)}</span></p>
+<h2 class="display display--sheet" id="st-${esc(c.id)}">${title(c.title)}</h2>
+<div class="sheet__intro">${paragraphs(c.intro)}</div>
+<p class="sheet__handoff"><span>Handed on</span>${esc(c.handoff)}</p>
+</header>
+<div class="finds">${finds}</div>
+</div>
+${next ? `<button class="sheet__next" type="button" data-open="${esc(next.id)}"><span class="sheet__next-k">Next · ${esc(next.nm)}${next.kind === 'open' ? '' : ' nm'}</span><span class="sheet__next-t">${esc(next.title)}</span>${ARROW}</button>` : ''}
+</div>
+</div>
+</dialog>`;
+}
+
+function openScene(sceneIndex) {
+  const t = TABLE.open;
+  const qs = (open.questions || [])
+    .map((q, i) => `<li><button type="button" data-open="open" data-focus="${esc(q.id)}"><span class="q__n">?${i + 1}</span><span class="q__t">${esc(q.title)}</span></button></li>`)
+    .join('');
+  return `<section class="scene scene--open" id="c-open" data-scene="${sceneIndex}" data-shape="${t.shape}" data-side="left" data-label="${esc(open.title)}" data-nm="${esc(open.nm)} nm" data-hue="${t.hue}" style="--hue:${t.hue};--wdth:${t.wdth}%" aria-labelledby="t-open">
+<div class="pin">
+<div class="copy">
+<p class="kicker r"><span class="kicker__n">??</span><span class="kicker__bar"></span><span>${esc(open.nm)} nm</span></p>
+<h2 class="display" id="t-open">${title(open.title)}</h2>
+<p class="lede r">${esc(open.intro[1] || open.intro[0])}</p>
+<ol class="questions r">${qs}</ol>
+</div>
+</div>
+</section>`;
+}
+
+function openSheet() {
+  const t = TABLE.open;
+  const qs = (open.questions || [])
+    .map((q, i) => `<article class="find find--q" id="f-${esc(q.id)}" style="--i:${i}">
+<div class="find__meta"><span class="find__year">Open question ${i + 1}</span></div>
+<h3 class="find__title">${esc(q.title)}</h3>
+<p class="find__summary">${esc(q.text)}</p>
+${linkList('Rests on', q.builtOn || [])}
+</article>`)
+    .join('\n');
+  return `<dialog class="sheet" id="sheet-open" data-sheet="open" style="--hue:${t.hue};--wdth:${t.wdth}%" aria-labelledby="st-open">
+<div class="sheet__panel">
+<div class="sheet__bar"><span class="sheet__crumb">Beyond the visible</span><button class="sheet__close" type="button" data-close>${CROSS}<span>Close</span></button></div>
+<div class="sheet__scroll" data-scroll>
+<div class="sheet__grid">
+<header class="sheet__head">
+<p class="kicker"><span class="kicker__n">??</span><span class="kicker__bar"></span><span>${esc(open.years)}</span></p>
+<h2 class="display display--sheet" id="st-open">${title(open.title)}</h2>
+<div class="sheet__intro">${paragraphs(open.intro)}</div>
+</header>
+<div class="finds">${qs}</div>
+</div>
+</div>
+</div>
+</dialog>`;
+}
+
+function sourcesSheet() {
+  const refs = references
+    .map((r) => `<li><a href="${esc(r.url)}" rel="noopener" target="_blank">${esc(r.label)}</a></li>`)
+    .join('');
+  const credits = Object.entries(plates)
+    .map(([id, p]) => {
+      const line = lineById.get(id)?.line;
+      return `<li><span>${esc(line ? line.title : id)}</span> <a href="${esc(p.source)}" rel="noopener" target="_blank">${esc(p.credit)}</a> <em>${esc(p.license)}</em></li>`;
+    })
+    .join('');
+  return `<dialog class="sheet sheet--plain" id="sheet-sources" data-sheet="sources" style="--hue:272;--wdth:90%" aria-labelledby="st-sources">
+<div class="sheet__panel">
+<div class="sheet__bar"><span class="sheet__crumb">Sources and credits</span><button class="sheet__close" type="button" data-close>${CROSS}<span>Close</span></button></div>
+<div class="sheet__scroll" data-scroll>
+<div class="sheet__grid">
+<header class="sheet__head">
+<h2 class="display display--sheet" id="st-sources">${title('Sources & credits')}</h2>
+<div class="sheet__intro"><p>Dates and claims follow the sources below. Plates are from Wikimedia Commons, resized and converted to WebP.</p></div>
+</header>
+<div class="sources">
+<h3>Reading</h3><ol class="reflist">${refs}</ol>
+<h3>Plates</h3><ul class="credits">${credits}</ul>
+</div>
+</div>
+</div>
+</div>
+</dialog>`;
+}
+
+function indexMenu() {
+  const rows = allChapters
+    .map((c, ci) => {
+      const t = TABLE[c.id];
+      const n = c.kind === 'open' ? '??' : pad(ci + 1);
+      return `<li style="--hue:${t.hue};--ground:${t.ground};--i:${ci}"><a href="#c-${esc(c.id)}" data-jump="c-${esc(c.id)}"><span class="ix__n">${n}</span><span class="ix__t">${esc(c.title)}</span><span class="ix__y">${esc(c.years)}</span><span class="ix__sw" aria-hidden="true"></span></a></li>`;
+    })
+    .join('');
+  return `<dialog class="sheet sheet--index" id="sheet-index" data-sheet="index" aria-label="Chapters">
+<div class="sheet__panel">
+<div class="sheet__bar"><span class="sheet__crumb">Index · 700 nm to the edge of the visible</span><button class="sheet__close" type="button" data-close>${CROSS}<span>Close</span></button></div>
+<div class="sheet__scroll" data-scroll>
+<ol class="ix">${rows}</ol>
+</div>
+</div>
+</dialog>`;
+}
+
 // ---------- page ----------
-const favicon = (() => {
-  const svg =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g"><stop offset="0" stop-color="#9b1b1b"/><stop offset=".35" stop-color="#e8a317"/><stop offset=".65" stop-color="#3fb37a"/><stop offset="1" stop-color="#1b3f9b"/></linearGradient></defs><rect x="0" y="8" width="32" height="16" fill="url(#g)"/><rect x="10" y="8" width="3" height="16" fill="#120d0d"/><rect x="21" y="8" width="2" height="16" fill="#120d0d"/></svg>';
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-})();
+const firstChapterScene = 2;
+const scenesHtml = [
+  `<section class="scene scene--hero" id="top" data-scene="0" data-shape="sun" data-side="center" data-label="The Sun" data-nm="white light" data-hue="40" style="--hue:40" aria-labelledby="t-hero">
+<div class="pin">
+<div class="hero">
+<p class="hero__eyebrow r"><span>A history of science</span><span>in ${ticks.length} lines</span></p>
+<h1 class="hero__title" id="t-hero"><span class="hero__row"><span class="hero__word">Dark</span></span><span class="hero__row hero__row--2"><span class="hero__word"><em>Lines</em></span></span></h1>
+<p class="hero__lede r">In 1814 Joseph von Fraunhofer counted 574 dark lines in the light of the Sun. Nobody could say what they were.</p>
+<p class="hero__cue r" aria-hidden="true"><span class="hero__cue-line"></span>Scroll</p>
+</div>
+</div>
+</section>`,
+  `<section class="scene scene--intro" id="intro" data-scene="1" data-shape="spectrum" data-side="center" data-label="Fraunhofer’s chart" data-nm="380 – 700 nm" data-hue="58" style="--hue:58" aria-label="How to read this page">
+<div class="pin">
+<div class="statement">
+<p class="kicker r"><span class="kicker__n">1814 → 1859</span><span class="kicker__bar"></span><span>How to read this page</span></p>
+<p class="statement__text" data-scrub>${scrub('Forty-five years later the lines turned out to be a record of what the Sun is made of. This page uses his chart. It runs from red to the edge of the visible, and every dark line is something we learned.')}</p>
+</div>
+</div>
+</section>`,
+  ...chapters.map((c, ci) => chapterScene(c, ci, firstChapterScene + ci)),
+  openScene(firstChapterScene + chapters.length),
+  `<section class="scene scene--close" id="close" data-scene="${firstChapterScene + chapters.length + 1}" data-shape="ring" data-side="center" data-label="The whole spectrum" data-nm="380 – 700 nm" data-hue="40" style="--hue:40" aria-labelledby="t-close">
+<div class="pin">
+<div class="close">
+<h2 class="display display--close" id="t-close">${title('Every dark line is something we learned.')}</h2>
+<p class="lede r">The rest of the spectrum is still dark.</p>
+<div class="close__actions r">
+<button class="cta cta--ghost" type="button" data-top>${ARROW_UP}<span class="cta__label">Back to the red end</span></button>
+<button class="cta cta--ghost" type="button" data-open="sources" aria-haspopup="dialog"><span class="cta__label">Sources &amp; credits</span>${ARROW}</button>
+</div>
+<p class="close__foot r">Drawn live in WebGL from about sixteen thousand points. No frameworks.</p>
+</div>
+</div>
+</section>`,
+];
 
-const DESCRIPTION =
-  'A history of science drawn as the Sun’s spectrum, where every dark line is something we learned.';
-const TITLE = 'Dark Lines: a history of science';
-
-const tickHtml = ticks
-  .map(
-    (t) =>
-      `<a class="rail__tick" href="${esc(t.href)}" data-tick="${esc(t.id)}" data-weight="${t.weight}" data-tone="${t.tone}" style="--x:${pct(t.x)};--lc:${t.lc}" aria-label="${esc(t.label)}"></a>`
-  )
-  .join('\n');
-const heroLines = ticks
-  .map(
-    (t, i) =>
-      `<span class="hero__line" data-weight="${t.weight}" data-tone="${t.tone}" style="--x:${pct(t.x)};--lc:${t.lc};--d:${heroDelays[i]}ms"></span>`
-  )
+const railTicks = ticks
+  .map((t) => `<span class="rail__tick${t.q ? ' rail__tick--q' : ''}" data-w="${t.w}" style="--y:${pct(t.x * 100)}"></span>`)
   .join('');
-const closeLines = ticks
-  .map(
-    (t) =>
-      `<a class="close__line" href="${esc(t.href)}" data-tick="${esc(t.id)}" data-weight="${t.weight}" data-tone="${t.tone}" style="--x:${pct(t.x)};--lc:${t.lc}" aria-label="${esc(t.closeLabel)}"></a>`
-  )
+const railStops = allChapters
+  .map((c, ci) => `<button class="rail__stop" type="button" data-jump="c-${esc(c.id)}" style="--y:${pct((ci + 0.5) * SEG * 100)}" aria-label="${esc(c.title)}"></button>`)
   .join('');
 
-const menuItems = allChapters
-  .map(
-    (c) =>
-      `<li><a class="menu__link" href="#c-${esc(c.id)}" data-ink="${TABLE[c.id].ink}" style="--ground:${TABLE[c.id].ground};--hue:${hueOf(TABLE[c.id].ground)};--wdth:${TABLE[c.id].wdth}"><span class="menu__title">${esc(c.title)}</span><span class="menu__years">${esc(c.years)}</span></a></li>`
-  )
-  .join('\n');
-
-// sources
-const refsHtml = references.length
-  ? `<ol class="sources__list">\n${references
-      .map((r) => `<li><a href="${esc(r.url)}" rel="noopener">${esc(r.label)}</a></li>`)
-      .join('\n')}\n</ol>`
-  : '';
-const plateLines = [];
-for (const c of chapters)
-  for (const l of c.lines || [])
-    if (plates[l.plate || l.id]) plateLines.push({ l, p: plates[l.plate || l.id] });
-const platesHtml = plateLines.length
-  ? `<h3>Plates</h3>\n<ul class="sources__plates">\n${plateLines
-      .map(
-        ({ l, p }) =>
-          `<li><a href="${esc(p.source)}" rel="noopener">${esc(l.year)}, ${esc(l.title)}</a>: ${esc(p.credit)}, ${esc(p.license)}</li>`
-      )
-      .join('\n')}\n</ul>`
-  : '';
-
-const heroTitle = ['A history of science,', 'read like', 'sunlight']
-  .map((s, i) => `<span class="hero__tl" style="--i:${i}">${esc(s)}</span>`)
-  .join(' ');
+const spectrumData = {
+  lines: ticks.map((t) => [+t.x.toFixed(4), t.w]),
+  hues: allChapters.map((c) => TABLE[c.id].hue),
+};
 
 const html = `<!doctype html>
 <html lang="en" class="no-js">
@@ -396,88 +397,51 @@ const html = `<!doctype html>
 <script>document.documentElement.className=document.documentElement.className.replace('no-js','js')</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(TITLE)}</title>
-<meta name="description" content="${esc(DESCRIPTION)}">
-<meta name="theme-color" content="${THEME_COLOR}">
-<meta property="og:title" content="${esc(TITLE)}">
-<meta property="og:description" content="${esc(DESCRIPTION)}">
+<title>Dark Lines: a history of science</title>
+<meta name="description" content="A history of science drawn as the Sun’s spectrum, where every dark line is something we learned.">
+<meta name="theme-color" content="#07070a">
+<meta property="og:title" content="Dark Lines: a history of science">
+<meta property="og:description" content="A history of science drawn as the Sun’s spectrum, where every dark line is something we learned.">
 <meta property="og:type" content="website">
-<link rel="icon" href="${favicon}">
-${fontPreloads()}
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2212%22%20fill%3D%22%23ffcf7a%22%2F%3E%3Cpath%20d%3D%22M11%206v20M16%204v24M20%206v20%22%20stroke%3D%22%2307070a%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/stix-two-text-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/rail.css">
-<link rel="stylesheet" href="css/hero.css">
-<link rel="stylesheet" href="css/chapter.css">
-<link rel="stylesheet" href="css/line.css">
-<link rel="stylesheet" href="css/close.css">
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to the first chapter</a>
+<a class="skip" href="#c-sky">Skip to the first chapter</a>
+<canvas class="stage" data-stage aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
 
-<header class="rail" data-rail>
-<a class="rail__name" href="#top">Dark Lines</a>
-<div class="rail__strip" data-rail-strip style="background:${GRADIENT}">
-${tickHtml}
-<span class="rail__cursor" data-rail-cursor aria-hidden="true"></span>
-</div>
-<span class="rail__readout" data-rail-readout aria-hidden="true">${esc(allChapters[0].lines[0]?.year ?? '')}</span>
-<button class="rail__menu" type="button" data-menu-toggle aria-expanded="false" aria-controls="chapters">Chapters</button>
+<header class="hud">
+<a class="hud__mark" href="#top" data-jump="top"><span class="hud__glyph" aria-hidden="true"></span>Dark Lines</a>
+<p class="hud__now" aria-live="off"><span class="hud__nm" data-hud-nm>white light</span><span class="hud__label" data-hud-label>The Sun</span></p>
+<button class="hud__menu" type="button" data-open="index" aria-haspopup="dialog"><span>Index</span><span class="hud__bars" aria-hidden="true"></span></button>
 </header>
 
-<nav class="menu" id="chapters" data-menu aria-label="Chapters" hidden>
-<ol class="menu__list">
-${menuItems}
-</ol>
+<nav class="rail" aria-label="Spectrum">
+<span class="rail__nm rail__nm--top" aria-hidden="true">700</span>
+<div class="rail__bar" style="background:${railGradient}">${railTicks}${railStops}<span class="rail__cursor" data-rail-cursor aria-hidden="true"></span></div>
+<span class="rail__nm rail__nm--bottom" aria-hidden="true">380</span>
 </nav>
 
+<p class="count" aria-hidden="true"><span data-count>00</span><span class="count__of">/ ${pad(chapters.length)}</span></p>
+
 <main id="main">
-<section class="hero" id="top" data-hero>
-<div class="hero__stick">
-<div class="wrap hero__copy">
-<h1 class="hero__title">${heroTitle}</h1>
-<p class="hero__lede">In 1814 Joseph von Fraunhofer mapped 574 dark lines in the Sun’s spectrum and could not say what they were; in 1859 they turned out to be a record of what the Sun is made of. This page uses his chart: it runs from red to the edge of the visible, and each dark line is something we learned.</p>
-<a class="btn" href="#c-${esc(allChapters[0].id)}"><span>Start at the red end</span>${ARROW_RIGHT}</a>
-</div>
-<div class="hero__beam" aria-hidden="true"></div>
-<div class="hero__band" data-hero-band aria-hidden="true" style="background:${GRADIENT}">
-${heroLines}
-</div>
-</div>
-</section>
-
-${allChapters.map(renderChapter).join('\n\n')}
-
-<section class="close" id="close" data-close>
-<div class="wrap close__head">
-<h2 class="close__title">Every line so far</h2>
-<p class="close__text">Each line on this band is one entry above. The ones you opened are drawn in full. The five bright lines at the dark end are the questions nobody has dated yet.</p>
-<p class="close__count" data-record-count></p>
-</div>
-<div class="close__stage">
-<p class="close__label" data-record-label aria-hidden="true"></p>
-<div class="close__band" data-record-band style="background:${GRADIENT}">
-${closeLines}
-</div>
-</div>
-<div class="wrap close__foot"><a class="btn" href="#top"><span>Return to the red end</span>${ARROW_UP}</a></div>
-</section>
-
-<section class="sources" id="sources">
-<div class="wrap">
-<h2>Sources and further reading</h2>
-${refsHtml}
-${platesHtml}
-</div>
-</section>
+${scenesHtml.join('\n\n')}
 </main>
-<footer class="foot"><div class="wrap"><p>Dark Lines. Plates from Wikimedia Commons and NASA; details under <a href="#sources">Sources</a>.</p></div></footer>
+
+${chapters.map(chapterSheet).join('\n')}
+${openSheet()}
+${sourcesSheet()}
+${indexMenu()}
+
+<script type="application/json" id="spectrum-data">${JSON.stringify(spectrumData)}</script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>
 `;
 
 writeFileSync(resolve(ROOT, 'index.html'), html);
-const lineCount = chapters.reduce((n, c) => n + (c.lines || []).length, 0);
-console.log(`built index.html from ${contentDir}: ${chapters.length + 1} chapters, ${lineCount} lines, ${(open.questions || []).length} questions`);
+console.log(`built index.html: ${chapters.length} chapters, ${ticks.length} lines, ${Object.keys(plates).length} plates, ${(html.length / 1024).toFixed(1)} KB`);
